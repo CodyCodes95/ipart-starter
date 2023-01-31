@@ -12,7 +12,7 @@ export const getIpartSettings = async () => {
   const contentItemKey = document.querySelector<any>("#x-contentItemKey").value;
 
   const getSettings = await fetch(
-    `${window.location.origin}/api/ContentItem?contentKey=${contentKey}&contentItemKey=${contentItemKey}`,
+    `/api/ContentItem?contentKey=${contentKey}&contentItemKey=${contentItemKey}`,
     getOptions
   );
   const data = await getSettings.json();
