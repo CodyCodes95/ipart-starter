@@ -10,6 +10,7 @@ type Settings = {
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [exampleValue, setExampleValue] = useState<string>("");
+  const [sampleIqaPath, setSampleIqaPath] = useState<string>("");
 
   const getSettings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
@@ -53,6 +54,12 @@ const Settings = () => {
           onChange={(e) => setExampleValue(e.target.value)}
         />
       </ConfigInput>
+                <ConfigInput label="Example IQA Select">
+            <input type="text" placeholder="Select an IQA" value={sampleIqaPath} />
+            <a className="cursor-pointer TextButton" onClick={() => bindIqa(setSampleIqaPath)}>
+              Search
+            </a>
+          </ConfigInput>
     </div>
   );
 };
