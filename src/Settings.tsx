@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import loader from "./assets/loader.svg";
 import { bindIqa } from "./utils/settingsFunctions";
 import ConfigInput from "./components/settings/ConfigInput";
+import { Toaster } from 'react-hot-toast';
+import { showError, showSuccess } from "./utils/toast";
 
 type Settings = {
   // Settings type here
@@ -46,6 +48,7 @@ const Settings = () => {
 
   return (
     <div className="flex min-h-[30rem] w-full items-center justify-center">
+      <Toaster />
       <ConfigInput label="Example Value">
         <input
           type="text"

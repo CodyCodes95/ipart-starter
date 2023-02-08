@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { getIpartSettings } from "./utils/imisFetchOptions";
+import { Toaster } from "react-hot-toast";
+import { showError, showSuccess } from "./utils/toast";
 
 const App = () => {
   const setSettings = async () => {
@@ -14,6 +16,7 @@ const App = () => {
 
   return (
     <div>
+      <Toaster />
       <p className="text-5xl">my iPart</p>
     </div>
   );
