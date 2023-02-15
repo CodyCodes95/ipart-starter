@@ -1,4 +1,4 @@
-export const bindIqa = (setInput: React.SetStateAction<any>) => {
+export const bindIqa = (setInput) => {
   OpenObjectBrowserSized(
     "TypeFilter=FOL,IQD",
     (sender, args) => {
