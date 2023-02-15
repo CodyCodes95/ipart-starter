@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import loader from "./assets/loader.svg";
 import { bindIqa } from "./utils/settingsFunctions";
 import ConfigInput from "./components/settings/ConfigInput";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import { showError, showSuccess } from "./utils/toast";
+import icon from "./assets/icon.svg";
 
 type Settings = {
   // Settings type here
@@ -37,6 +38,10 @@ const Settings = () => {
   if (!isLoading) {
     return (
       <div className="flex min-h-[30rem] w-full items-center justify-center">
+        <div className="flex w-full items-center">
+          <img src={icon} className="h-[10rem] w-[10rem]" alt="Smart Suite Icon" />
+          <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
+        </div>
         <img
           src={loader}
           alt="Loading spinner"
@@ -48,6 +53,10 @@ const Settings = () => {
 
   return (
     <div className="flex min-h-[30rem] w-full items-center justify-center">
+      <div className="flex w-full items-center">
+        <img src={icon} className="h-[10rem] w-[10rem]" alt="Smart Suite Icon" />
+        <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
+      </div>
       <Toaster />
       <ConfigInput label="Example Value">
         <input
@@ -57,12 +66,15 @@ const Settings = () => {
           onChange={(e) => setExampleValue(e.target.value)}
         />
       </ConfigInput>
-                <ConfigInput label="Example IQA Select">
-            <input type="text" placeholder="Select an IQA" value={sampleIqaPath} />
-            <a className="cursor-pointer TextButton" onClick={() => bindIqa(setSampleIqaPath)}>
-              Search
-            </a>
-          </ConfigInput>
+      <ConfigInput label="Example IQA Select">
+        <input type="text" placeholder="Select an IQA" value={sampleIqaPath} />
+        <a
+          className="TextButton cursor-pointer"
+          onClick={() => bindIqa(setSampleIqaPath)}
+        >
+          Search
+        </a>
+      </ConfigInput>
     </div>
   );
 };
