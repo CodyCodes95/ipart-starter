@@ -22,6 +22,8 @@ const Settings = () => {
       );
       console.log(settings);
       // Set all state vars with values from settings
+      setExampleValue(settings.exampleValue);
+      setSampleIqaPath(settings.sampleIqaPath);
       setIsLoading(false);
     } else {
       console.log("No settings found");
@@ -30,9 +32,8 @@ const Settings = () => {
   };
 
   const saveSettings = (newSettings: Settings) => {
-    document.querySelector<any>("#JsonSettings").value = JSON.stringify(
-      newSettings
-    );
+    document.querySelector<any>("#JsonSettings").value =
+      JSON.stringify(newSettings);
   };
 
   if (isLoading) {
