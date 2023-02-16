@@ -11,7 +11,7 @@ type Settings = {
 };
 
 const Settings = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [exampleValue, setExampleValue] = useState<string>("");
   const [sampleIqaPath, setSampleIqaPath] = useState<string>("");
 
@@ -22,24 +22,28 @@ const Settings = () => {
       );
       console.log(settings);
       // Set all state vars with values from settings
-      setIsLoading(true);
+      setIsLoading(false);
     } else {
       console.log("No settings found");
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 
   const saveSettings = (newSettings: Settings) => {
     document.querySelector<any>("#JsonSettings").value = JSON.stringify(
       newSettings
-    ) as Settings;
+    );
   };
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="flex min-h-[30rem] w-full items-center justify-center">
         <div className="flex w-full items-center">
-          <img src={icon} className="h-[10rem] w-[10rem]" alt="Smart Suite Icon" />
+          <img
+            src={icon}
+            className="h-[10rem] w-[10rem]"
+            alt="Smart Suite Icon"
+          />
           <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
         </div>
         <img
@@ -54,7 +58,11 @@ const Settings = () => {
   return (
     <div className="flex min-h-[30rem] w-full items-center justify-center">
       <div className="flex w-full items-center">
-        <img src={icon} className="h-[10rem] w-[10rem]" alt="Smart Suite Icon" />
+        <img
+          src={icon}
+          className="h-[10rem] w-[10rem]"
+          alt="Smart Suite Icon"
+        />
         <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
       </div>
       <Toaster />
