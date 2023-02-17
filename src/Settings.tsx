@@ -50,7 +50,7 @@ const Settings = () => {
         <img
           src={loader}
           alt="Loading spinner"
-          className="h-[10rem] w-[10rem] stroke-purple-700 "
+          className="h-[10rem] w-[10rem] stroke-[#e41e2e] "
         />
       </div>
     );
