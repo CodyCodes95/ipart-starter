@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import loader from "./assets/loader.svg";
 import { bindIqa } from "./utils/settingsFunctions";
 import ConfigInput from "./components/settings/ConfigInput";
@@ -32,6 +32,21 @@ const Settings = () => {
     document.querySelector<any>("#JsonSettings").value =
       JSON.stringify(newSettings);
   };
+
+  useEffect(() => {
+    // Runs on intial iPart load
+    document.querySelector<any>("[id$=_SaveButton]").disabled = true;
+    getSettings();
+  }, []);
+
+  useEffect(() => {
+    if (exampleValue && sampleIqaPath) {
+      saveSettings({ exampleValue, sampleIqaPath });
+          document.querySelector<any>("[id$=_SaveButton]").disabled = false;
+    } else {
+      document.querySelector<any>("[id$=_SaveButton]").disabled = true;
+    }
+  }, [exampleValue, sampleIqaPath]);
 
   if (isLoading) {
     return (

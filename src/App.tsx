@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisFetchOptions";
 import { Toaster } from "react-hot-toast";
 import { showError, showSuccess } from "./utils/toast";
-import { Settings } from "./types/Settings";
 
 const App = () => {
 
@@ -11,9 +10,9 @@ const App = () => {
 
 
   const setSettings = async () => {
-    const settings = await getIpartSettings() as Settings;
-    setExampleValue(settings.exampleValue);
-    setSampleIqaPath(settings.sampleIqaPath);
+    const {exampleValue, sampleIqaPath} = await getIpartSettings()
+    setExampleValue(exampleValue);
+    setSampleIqaPath(sampleIqaPath);
   };
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const App = () => {
   return (
     <div>
       <Toaster />
-      <p className="text-5xl">my iPart</p>
     </div>
   );
 };
