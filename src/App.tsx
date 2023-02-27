@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisFetchOptions";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { showError, showSuccess } from "./utils/toast";
 
 const App = () => {
@@ -21,9 +21,13 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <Toaster />
-    </div>
+      <Toaster
+        position="top-center"
+        containerStyle={{
+          zIndex: 10000000,
+          top: 250,
+        }}
+      />
   );
 };
 
