@@ -5,7 +5,7 @@ import ConfigInput from "./components/settings/ConfigInput";
 import { Toaster } from "react-hot-toast";
 import { showError, showSuccess } from "./utils/toast";
 import icon from "./assets/icon.svg";
-import { Settings } from "./types/Settings";
+import { SettingsType } from "./types/Settings";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -16,7 +16,7 @@ const Settings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
       const settings = JSON.parse(
         document.querySelector<any>("#JsonSettings").value
-      ) as Settings;
+      ) as SettingsType;
       console.log(settings);
       // Set all state vars with values from settings
       setExampleValue(settings.exampleValue);
@@ -28,7 +28,7 @@ const Settings = () => {
     }
   };
 
-  const saveSettings = (newSettings: Settings) => {
+  const saveSettings = (newSettings: SettingsType) => {
     document.querySelector<any>("#JsonSettings").value =
       JSON.stringify(newSettings);
   };
