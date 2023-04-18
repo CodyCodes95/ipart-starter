@@ -42,7 +42,7 @@ const Settings = () => {
   useEffect(() => {
     if (exampleValue && sampleIqaPath) {
       saveSettings({ exampleValue, sampleIqaPath });
-          document.querySelector<any>("[id$=_SaveButton]").disabled = false;
+      document.querySelector<any>("[id$=_SaveButton]").disabled = false;
     } else {
       document.querySelector<any>("[id$=_SaveButton]").disabled = true;
     }
@@ -69,7 +69,7 @@ const Settings = () => {
   }
 
   return (
-    <div className="flex min-h-[30rem] w-full items-center justify-center">
+    <div className="flex min-h-[30rem] w-full flex-col items-center justify-center">
       <div className="flex w-full items-center">
         <img
           src={icon}
