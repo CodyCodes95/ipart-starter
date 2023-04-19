@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import loader from "./assets/loader.svg";
-import { bindIqa } from "./utils/settingsFunctions";
+import { bindIqa } from "./utils/noTypes";
 import ConfigInput from "./components/settings/ConfigInput";
 import { Toaster } from "react-hot-toast";
 import icon from "./assets/icon.svg";

@@ -10,5 +10,7 @@ export const bindIqa = (setInput) => {
     },
     true,
     true
-  )
+  );
 };
+
+export const user = typeof userContext !== "undefined" ? userContext : {};
