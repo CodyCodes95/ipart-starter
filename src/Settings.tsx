@@ -3,7 +3,6 @@ import loader from "./assets/loader.svg";
 import { bindIqa } from "./utils/settingsFunctions";
 import ConfigInput from "./components/settings/ConfigInput";
 import { Toaster } from "react-hot-toast";
-import { showError, showSuccess } from "./utils/toast";
 import icon from "./assets/icon.svg";
 import { SettingsType } from "./types/Settings";
 

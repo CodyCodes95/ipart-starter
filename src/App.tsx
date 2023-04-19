@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
 import toast, { Toaster } from "react-hot-toast";
-import { showError, showSuccess } from "./utils/toast";
 import loader from "./assets/loader.svg";
 
 const App = () => {
@@ -29,7 +28,7 @@ const App = () => {
 
   return (
     <Toaster
-      position="top-center"
+      position="bottom-right"
       containerStyle={{
         zIndex: 10000000,
         top: 250,
