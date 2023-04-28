@@ -1,6 +1,6 @@
 import { SettingsType } from "../types/Settings";
 
-const settings: SettingsType = {
+const localSettings: SettingsType = {
   exampleValue: "string",
   sampleIqaPath: "string",
 };
