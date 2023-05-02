@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
 import toast, { Toaster } from "react-hot-toast";
 import loader from "./assets/loader.svg";
-import { api } from "./api/api";
 
 const App = () => {
   const [exampleValue, setExampleValue] = useState<string>("");
@@ -10,10 +9,10 @@ const App = () => {
   const [settingsRetrieved, setSettingsRetrieved] = useState<boolean>(false);
 
   const setSettings = async () => {
-    const { exampleValue, sampleIqaPath } = await getIpartSettings();
-    setExampleValue(exampleValue);
-    setSampleIqaPath(sampleIqaPath);
-    setSettingsRetrieved(true);
+    // const { exampleValue, sampleIqaPath } = await getIpartSettings();
+    // setExampleValue(exampleValue);
+    // setSampleIqaPath(sampleIqaPath);
+    // setSettingsRetrieved(true);
   };
 
   useEffect(() => {
