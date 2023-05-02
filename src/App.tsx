@@ -28,6 +28,7 @@ const App = () => {
   }
 
   return (
+    <div className="flex w-full flex-col">
     <Toaster
       position="bottom-right"
       containerStyle={{
@@ -35,6 +36,7 @@ const App = () => {
         top: 250,
       }}
     />
+    </div>
   );
 };
 
