@@ -34,7 +34,8 @@ const App = () => {
         zIndex: 10000000,
         top: 250,
       }}
-    />
+      />
+      <h1>Test</h1>
     </div>
   );
 };
