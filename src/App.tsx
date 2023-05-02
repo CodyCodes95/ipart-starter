@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
 import toast, { Toaster } from "react-hot-toast";
 import loader from "./assets/loader.svg";
+import { api } from "./api/api";
 
 const App = () => {
   const [exampleValue, setExampleValue] = useState<string>("");
