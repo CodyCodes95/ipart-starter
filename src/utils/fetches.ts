@@ -50,3 +50,40 @@ export const imisFetch = async (
     return data;
   }
 };
+
+export const api = {
+  get: async <T>(
+    endpoint: string,
+    parameters?: { [key: string]: string | number }[],
+    offset: number = 0,
+    limit: number = 100
+  ): Promise<T> => {
+    const params = new URLSearchParams();
+    params.append("offset", offset.toString());
+    params.append("limit", limit.toString());
+    if (parameters) {
+      Object.entries(parameters).forEach(([key, value]) => {
+        params.append(key, value.toString());
+      });
+    }
+    const res = await imisFetch(`${endpoint}?${params.toString()}`, "GET");
+    return res;
+  },
+  query: async <T>(
+    query: string,
+    parameters?: { [key: string]: string | number }[],
+    offset: number = 0,
+    limit: number = 100
+  ):Promise<T> => {
+    const params = new URLSearchParams();
+    params.append("offset", offset.toString());
+    params.append("limit", limit.toString());
+    if (parameters) {
+      Object.entries(parameters).forEach(([key, value]) => {
+        params.append(key, value.toString());
+      });
+    }
+    const res = await imisFetch(`query/${query}?${params.toString()}`, "GET");
+    return res;
+  },
+};
