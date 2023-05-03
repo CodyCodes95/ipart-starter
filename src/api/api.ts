@@ -1,3 +1,5 @@
+import { QueryResponse } from "../types/api";
+
 const buildRequest = (method: string, body: any) => {
   if (body) {
     return {
@@ -73,10 +75,10 @@ export const api = {
   query: async <T>(
     query: string,
     // query: Endpoints,
-    parameters?: { [key: string]: string | number }[],
+    parameters?: { [key: string]: string | number },
     offset: number = 0,
     limit: number = 100
-  ):Promise<T> => {
+  ) => {
     const params = new URLSearchParams();
     params.append("offset", offset.toString());
     params.append("limit", limit.toString());
@@ -85,7 +87,11 @@ export const api = {
         params.append(key, value.toString());
       });
     }
-    const res = await imisFetch(`query/${query}?${params.toString()}`, "GET");
-    return res;
+    const res = await imisFetch(
+      `query?queryname=${query}&${params.toString()}`,
+      "GET"
+    );
+    // return res as T;
+    return res as QueryResponse<T>;
   },
 };
