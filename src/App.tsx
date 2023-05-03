@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
 import toast, { Toaster } from "react-hot-toast";
 import loader from "./assets/loader.svg";
-import { api, imisFetch } from "./utils/fetches";
+import { api } from "./api/api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
   }, []);
 
   const getData = async () => {
-    const res = await api.get<{ id: string }>("party?limit=3");
+    const res = await api.get<{ id: string }>("party");
     return res;
   };
 

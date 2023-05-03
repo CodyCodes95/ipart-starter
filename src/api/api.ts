@@ -54,6 +54,7 @@ export const imisFetch = async (
 export const api = {
   get: async <T>(
     endpoint: string,
+    // endpoint: Endpoints,
     parameters?: { [key: string]: string | number }[],
     offset: number = 0,
     limit: number = 100
@@ -71,6 +72,7 @@ export const api = {
   },
   query: async <T>(
     query: string,
+    // query: Endpoints,
     parameters?: { [key: string]: string | number }[],
     offset: number = 0,
     limit: number = 100

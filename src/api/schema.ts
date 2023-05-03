@@ -1,0 +1,1 @@
+type Endpoints = "party" | "event"
