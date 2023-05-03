@@ -9,7 +9,6 @@ const App = () => {
   const [exampleValue, setExampleValue] = useState<string>("");
   const [sampleIqaPath, setSampleIqaPath] = useState<string>("");
   const [settingsRetrieved, setSettingsRetrieved] = useState<boolean>(false);
-  const queryClient = useQueryClient();
 
   const setSettings = async () => {
     // const { exampleValue, sampleIqaPath } = await getIpartSettings();
