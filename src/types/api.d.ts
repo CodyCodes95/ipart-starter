@@ -13,6 +13,22 @@ export type QueryResponse<T> = {
   NextOffset: number;
 };
 
+export type ContactData = {
+  Properties: {
+    $values: {
+      Name: string;
+      Value:
+        | string
+        | number
+        | null
+        | {
+            $type: string;
+            $value: string | boolean;
+          };
+    }[];
+  };
+};
+
 export type ContentItem<T> = {
   $type: string;
   Items: {
