@@ -23,7 +23,7 @@ const App = () => {
   }, []);
 
   const getData = async () => {
-    const res = await imisFetch("/api/party?limit=3", "GET");
+    const res = await imisFetch("party?limit=3", "GET");
     return res;
   };
 

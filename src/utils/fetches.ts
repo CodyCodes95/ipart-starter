@@ -45,7 +45,7 @@ export const imisFetch = async (
     const data = await res.json();
     return data;
   } else {
-    const res = await fetch(`${endpoint}`, buildRequest(method, body));
+    const res = await fetch(`/api/${endpoint}`, buildRequest(method, body));
     const data = await res.json();
     return data;
   }
