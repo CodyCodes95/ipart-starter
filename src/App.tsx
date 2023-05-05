@@ -4,22 +4,27 @@ import toast, { Toaster } from "react-hot-toast";
 import loader from "./assets/loader.svg";
 import { api } from "./api/api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { SettingsType } from "./types/Settings";
 
 const App = () => {
-  const [exampleValue, setExampleValue] = useState<string>("");
-  const [sampleIqaPath, setSampleIqaPath] = useState<string>("");
-  const [settingsRetrieved, setSettingsRetrieved] = useState<boolean>(false);
+  const [settings, setSettings] = useState<SettingsType>();
 
-  const setSettings = async () => {
-    // const { exampleValue, sampleIqaPath } = await getIpartSettings();
-    // setExampleValue(exampleValue);
-    // setSampleIqaPath(sampleIqaPath);
-    // setSettingsRetrieved(true);
+  const getSettings = async () => {
+    const iPartSettings = await getIpartSettings();
+    if (!iPartSettings) {
+      toast.error("Error retrieving settings");
+      return;
+    }
+    setSettings(() => {
+      return {
+        ...iPartSettings,
+      };
+    });
   };
 
   useEffect(() => {
     // Runs on intial iPart load
-    setSettings();
+    getSettings();
   }, []);
 
   const getData = async () => {
@@ -33,10 +38,12 @@ const App = () => {
     console.log(party);
   }, [party]);
 
-  if (!settingsRetrieved) {
-    <div className="flex min-h-screen w-full flex-col items-center justify-center">
-      <img className="h-[15rem] w-[15rem]" src={loader} />
-    </div>;
+  if (!settings) {
+    return (
+      <div className="flex min-h-screen w-full flex-col items-center justify-center">
+        <img className="h-[15rem] w-[15rem]" src={loader} />
+      </div>
+    );
   }
 
   return (
