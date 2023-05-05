@@ -9,18 +9,18 @@ import { SettingsType } from "./types/Settings";
 const App = () => {
   const [settings, setSettings] = useState<SettingsType>();
 
-  const getSettings = async () => {
-    const iPartSettings = await getIpartSettings();
-    if (!iPartSettings) {
-      toast.error("Error retrieving settings");
-      return;
-    }
-    setSettings(() => {
-      return {
-        ...iPartSettings,
-      };
-    });
-  };
+ const getSettings = async () => {
+   const iPartSettings = await getIpartSettings();
+   if (!iPartSettings) {
+     toast.error("Error retrieving settings");
+     return;
+   }
+   setSettings(() => {
+     return {
+       ...iPartSettings,
+     };
+   });
+ };
 
   useEffect(() => {
     // Runs on intial iPart load
@@ -28,7 +28,7 @@ const App = () => {
   }, []);
 
   const getData = async () => {
-    const res = await api.get<{ id: string }>("party");
+    const res = await api.get.many<{ id: string }>("party");
     return res;
   };
 
@@ -39,11 +39,9 @@ const App = () => {
   }, [party]);
 
   if (!settings) {
-    return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <img className="h-[15rem] w-[15rem]" src={loader} />
-      </div>
-    );
+    <div className="flex min-h-screen w-full flex-col items-center justify-center">
+      <img className="h-[15rem] w-[15rem]" src={loader} />
+    </div>;
   }
 
   return (
