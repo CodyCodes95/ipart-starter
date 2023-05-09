@@ -111,7 +111,7 @@ export const api = {
     return res as QueryResponse<T>;
   },
   post: {
-    single: async <T>(endpoint: string, id:string, data: any[]) => {
+    single: async <T>(endpoint: string, id: string, data: any[]) => {
       const res = await imisFetch(`${endpoint}`, "POST", {
         $type: "Asi.Soa.Core.DataContracts.GenericEntityData, Asi.Contracts",
         EntityTypeName: endpoint,
@@ -139,12 +139,16 @@ export const api = {
               Name: "ID",
               Value: id,
             },
-            ...data
+            ...data,
           ],
         },
       });
       return res;
-    }
+    },
+    standalone: async <T>(endpoint: string, data: any) => {
+      const res = await imisFetch(`${endpoint}`, "POST", data);
+      return res;
+    },
   },
   put: {
     contact: async <T>(
@@ -172,6 +176,15 @@ export const api = {
         `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
         "PUT",
         newData
+      );
+      return res;
+    },
+  },
+  delete: {
+    one: async (endpoint: string, id: string, ordinal?: number) => {
+      const res = await imisFetch(
+        `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
+        "DELETE"
       );
       return res;
     },
