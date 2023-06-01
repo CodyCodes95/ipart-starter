@@ -70,8 +70,8 @@ export const api = {
       endpoint: string,
       // endpoint: Endpoints,
       parameters?: { [key: string]: string | number }[],
+      limit: number = 100,
       offset: number = 0,
-      limit: number = 100
     ): Promise<T> => {
       const params = new URLSearchParams();
       params.append("offset", offset.toString());
@@ -92,8 +92,8 @@ export const api = {
     query: string,
     // query: Endpoints,
     parameters?: { [key: string]: string | number },
+    limit: number = 100,
     offset: number = 0,
-    limit: number = 100
   ) => {
     const params = new URLSearchParams();
     params.append("offset", offset.toString());
