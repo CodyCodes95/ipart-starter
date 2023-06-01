@@ -4,7 +4,13 @@ import App from "./App";
 import "./index.css";
 import Settings from "./Settings";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 if (document.getElementById("JsonSettings")) {
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
