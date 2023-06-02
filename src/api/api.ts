@@ -71,7 +71,7 @@ export const api = {
       // endpoint: Endpoints,
       parameters?: { [key: string]: string | number }[],
       limit: number = 100,
-      offset: number = 0,
+      offset: number = 0
     ): Promise<T> => {
       const params = new URLSearchParams();
       params.append("offset", offset.toString());
@@ -93,7 +93,7 @@ export const api = {
     // query: Endpoints,
     parameters?: { [key: string]: string | number },
     limit: number = 100,
-    offset: number = 0,
+    offset: number = 0
   ) => {
     const params = new URLSearchParams();
     params.append("offset", offset.toString());
@@ -154,28 +154,29 @@ export const api = {
     contact: async <T>(
       endpoint: string,
       id: string,
-      updatedProperties: T[],
+      updatedProperties: {
+        [key: string]:
+          | string
+          | number
+          | null
+          | {
+              $type: string;
+              $value: string | boolean;
+            };
+      },
       ordinal?: number
     ) => {
-      const oldData = await api.get.one<ContactData>(endpoint, id, ordinal);
-      const newData = {
-        ...oldData,
-        Properties: {
-          $values: [
-            ...oldData.Properties.$values,
-            ...Object.entries(updatedProperties).map(([key, value]) => {
-              return {
-                Name: key,
-                Value: value,
-              };
-            }),
-          ],
-        },
-      };
+      const data = await api.get.one<ContactData>(endpoint, id, ordinal);
+      Object.entries(updatedProperties).forEach(([key, value]) => {
+        const index = data.Properties.$values.findIndex((x) => x.Name === key);
+        if (data.Properties.$values[index]) {
+          data.Properties.$values[index].Value = value;
+        }
+      });
       const res = await imisFetch(
         `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
         "PUT",
-        newData
+        data
       );
       return res;
     },
