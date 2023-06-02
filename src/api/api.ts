@@ -72,7 +72,7 @@ export const api = {
       parameters?: { [key: string]: string | number }[],
       limit: number = 100,
       offset: number = 0
-    ): Promise<T> => {
+    ) => {
       const params = new URLSearchParams();
       params.append("offset", offset.toString());
       params.append("limit", limit.toString());
@@ -85,7 +85,7 @@ export const api = {
         `${endpoint}${params ? `?${params.toString()}` : ""}`,
         "GET"
       );
-      return res;
+      return res as QueryResponse<T>;
     },
   },
   query: async <T>(
@@ -168,9 +168,11 @@ export const api = {
     ) => {
       const data = await api.get.one<ContactData>(endpoint, id, ordinal);
       Object.entries(updatedProperties).forEach(([key, value]) => {
-        const index = data.Properties.$values.findIndex((x) => x.Name === key);
-        if (data.Properties.$values[index]) {
-          data.Properties.$values[index].Value = value;
+        const property = data.Properties.$values.find(
+          (prop) => prop.Name === key
+        );
+        if (property) {
+          property.Value = value;
         }
       });
       const res = await imisFetch(
