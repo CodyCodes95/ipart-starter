@@ -111,7 +111,31 @@ export const api = {
     return res as QueryResponse<T>;
   },
   post: {
-    single: async <T>(endpoint: string, id: string, data: any[]) => {
+    // single: async <T>(endpoint: string, id: string, data: any[]) => {
+    single: async <T>(
+      endpoint: string,
+      id: string,
+      data?: { [key: string]: string | number }
+    ) => {
+      const bodyData: { [key: string]: string | number }[] = [
+        {
+          $type:
+            "Asi.Soa.Core.DataContracts.GenericPropertyData, Asi.Contracts",
+          Name: "ID",
+          Value: id,
+        },
+      ];
+      if (data) {
+        Object.entries(data).forEach(([key, value]) => {
+          bodyData.push({
+            $type:
+              "Asi.Soa.Core.DataContracts.GenericPropertyData, Asi.Contracts",
+            Name: key,
+            Value: value,
+          });
+        });
+      }
+
       const res = await imisFetch(`${endpoint}`, "POST", {
         $type: "Asi.Soa.Core.DataContracts.GenericEntityData, Asi.Contracts",
         EntityTypeName: endpoint,
@@ -132,15 +156,7 @@ export const api = {
         Properties: {
           $type:
             "Asi.Soa.Core.DataContracts.GenericPropertyDataCollection, Asi.Contracts",
-          $values: [
-            {
-              $type:
-                "Asi.Soa.Core.DataContracts.GenericPropertyData, Asi.Contracts",
-              Name: "ID",
-              Value: id,
-            },
-            ...data,
-          ],
+          $values: bodyData,
         },
       });
       return res;
