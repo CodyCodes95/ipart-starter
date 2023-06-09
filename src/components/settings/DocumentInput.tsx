@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import ConfigInput from "./ConfigInput";
 import { useFileExplorer } from "../../hooks/useFileExplorer";
 import FileExplorer from "../FileExplorer/FileExplorer";
@@ -7,13 +7,19 @@ import { FileTypes } from "../../types/imisTypes";
 
 type DocumentSelectorProps = {
   label: string;
-  setFileId: (fileId: string) => void;
+  setPath: (fileId: string) => void;
   fileTypes: FileTypes[];
 };
 
-const DocumentSelector: FC<DocumentSelectorProps> = ({ label, setFileId }) => {
+const DocumentSelector: FC<DocumentSelectorProps> = ({ label, setPath }) => {
   const { selectedFile, isExplorerOpen, handleFileSelect, openFileExplorer } =
     useFileExplorer();
+
+  useEffect(() => {
+    if (selectedFile) {
+      setPath(selectedFile.Path);
+    }
+  }, [selectedFile]);
 
   return (
     <>
