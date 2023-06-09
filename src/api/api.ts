@@ -111,17 +111,17 @@ export const api = {
     return res as QueryResponse<T>;
   },
   post: {
-    // single: async <T>(endpoint: string, id: string, data: any[]) => {
-    single: async <T>(
+    contact: async <T>(
       endpoint: string,
       id: string,
-      data?: { [key: string]: string | number }
+      data?: { [key: string]: string | number },
+      idKey: string = "ID"
     ) => {
       const bodyData: { [key: string]: string | number }[] = [
         {
           $type:
             "Asi.Soa.Core.DataContracts.GenericPropertyData, Asi.Contracts",
-          Name: "ID",
+          Name: idKey,
           Value: id,
         },
       ];
@@ -199,13 +199,11 @@ export const api = {
       return res;
     },
   },
-  delete: {
-    one: async (endpoint: string, id: string, ordinal?: number) => {
-      const res = await imisFetch(
-        `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
-        "DELETE"
-      );
-      return res;
-    },
+  delete: async (endpoint: string, id: string, ordinal?: number) => {
+    const res = await imisFetch(
+      `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
+      "DELETE"
+    );
+    return res;
   },
 };
