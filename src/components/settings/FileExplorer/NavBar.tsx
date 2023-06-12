@@ -1,7 +1,7 @@
 import { FaArrowLeft, FaArrowUp } from "react-icons/fa";
 import { DocumentData } from "../../../types/imisTypes";
 import { toast } from "react-hot-toast";
-import loader from "../assets/loader.svg";
+import {FaSearch} from "react-icons/fa";
 import { getFolderByPath } from "../../../utils/fileExplorer";
 import { HiChevronRight } from "react-icons/hi";
 
@@ -10,8 +10,7 @@ type NavBarProps = {
   setNavStack: React.Dispatch<React.SetStateAction<DocumentData[]>>;
   setCurrentFolder: React.Dispatch<React.SetStateAction<DocumentData>>;
   pathQuery: string;
-  setPathQuery: React.Dispatch<React.SetStateAction<string>>;
-  loading: boolean;
+  refetch: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   documentSearch: string;
   setDocumentSearch: React.Dispatch<React.SetStateAction<string>>;
@@ -22,8 +21,7 @@ const NavBar: React.FC<NavBarProps> = ({
   setNavStack,
   setCurrentFolder,
   pathQuery,
-  setPathQuery,
-  loading,
+refetch,
   documentSearch,
   setDocumentSearch,
   setLoading,
@@ -72,13 +70,16 @@ const NavBar: React.FC<NavBarProps> = ({
           </div>
         ))}
       </div>
+      <div className="w-full relative">
       <input
         type="text"
         className="w-1/4"
         placeholder="Search..."
         value={documentSearch}
         onChange={(e) => setDocumentSearch(e.target.value)}
-      />
+        /> 
+  <FaSearch onClick={refetch} className="absolute right-0"/>
+        </div>
     </div>
   );
 };

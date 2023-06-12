@@ -69,7 +69,7 @@ const FileExplorer: FC<FileExplorerProps> = ({ callback, fileTypes }) => {
       );
       return results.Items.$values;
     },
-    enabled: documentSearch.length > 500,
+    enabled: false,
   });
 
   const fetchItems = async () => {
@@ -110,8 +110,7 @@ const FileExplorer: FC<FileExplorerProps> = ({ callback, fileTypes }) => {
         setNavStack={setNavStack}
         setCurrentFolder={setCurrentFolder as any}
         pathQuery={pathQuery}
-        setPathQuery={setPathQuery}
-        loading={loading}
+        refetch={searchResults.refetch}
         setDocumentSearch={setDocumentSearch}
         setLoading={setLoading}
         documentSearch={documentSearch}
