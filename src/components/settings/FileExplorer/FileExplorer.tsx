@@ -3,7 +3,7 @@ import {
   getDecendantFiles,
   getDocumentByVersionId,
   getFolderByPath,
-} from "../../utils/fileExplorer";
+} from "../../../utils/fileExplorer";
 import {
   FaFolder,
   FaImage,
@@ -12,10 +12,10 @@ import {
   FaLink,
 } from "react-icons/fa";
 import { HiOutlineDocument } from "react-icons/hi";
-import { DocumentData, FileTypes } from "../../types/imisTypes";
+import { DocumentData, FileTypes } from "../../../types/imisTypes";
 import NavBar from "./NavBar";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../api/api";
+import { api } from "../../../api/api";
 import { toast } from "react-hot-toast";
 
 const fileTypeIcons = {

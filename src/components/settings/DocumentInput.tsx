@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import ConfigInput from "./ConfigInput";
 import { useFileExplorer } from "../../hooks/useFileExplorer";
-import FileExplorer from "../FileExplorer/FileExplorer";
+import FileExplorer from "./FileExplorer/FileExplorer";
 import { Dialog } from "@headlessui/react";
 import { FileTypes } from "../../types/imisTypes";
 
@@ -34,13 +34,13 @@ const DocumentSelector: FC<DocumentSelectorProps> = ({ label, setPath }) => {
         {/* Full-screen container to center the panel */}
         <div className="fixed inset-0 flex items-center justify-center p-4">
           {/* The actual dialog panel  */}
-          <Dialog.Panel>
+          <Dialog.Panel className={"w-full max-h-[40rem] overflow-scroll"}>
             <FileExplorer fileTypes={["IQD"]} callback={handleFileSelect} />
           </Dialog.Panel>
         </div>
       </Dialog>
       <ConfigInput label={label}>
-        <input type="text" value={selectedFile?.Name} />
+        <input type="text" value={selectedFile?.Path} />
         <a className="TextButton cursor-pointer" onClick={openFileExplorer}>
           Search
         </a>

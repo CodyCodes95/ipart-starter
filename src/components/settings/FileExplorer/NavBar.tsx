@@ -1,8 +1,8 @@
 import { FaArrowLeft, FaArrowUp } from "react-icons/fa";
-import { DocumentData } from "../../types/imisTypes";
+import { DocumentData } from "../../../types/imisTypes";
 import { toast } from "react-hot-toast";
 import loader from "../assets/loader.svg";
-import { getFolderByPath } from "../../utils/fileExplorer";
+import { getFolderByPath } from "../../../utils/fileExplorer";
 import { HiChevronRight } from "react-icons/hi";
 
 type NavBarProps = {
