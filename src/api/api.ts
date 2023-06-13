@@ -1,5 +1,7 @@
 import { ContactData, QueryResponse } from "../types/api";
 
+//Helper Functions
+
 const buildRequest = (method: string, body: any) => {
   if (body) {
     return {
@@ -53,6 +55,11 @@ export const imisFetch = async (
   }
 };
 
+      const getTotalQueryRecordCount = async (query:string) => {
+        const res = await api.query(query, undefined, 1);
+        return res.TotalCount
+      }
+
 export const api = {
   get: {
     one: async <T>(
@@ -68,7 +75,6 @@ export const api = {
     },
     many: async <T>(
       endpoint: string,
-      // endpoint: Endpoints,
       parameters?: { [key: string]: string | number }[],
       limit: number = 100,
       offset: number = 0
@@ -113,12 +119,8 @@ export const api = {
     queryAll: async <T>(
     query: string,
     ) => {
-      const getIqaCount = async () => {
-        const res = await api.query<T>(query, undefined, 1);
-        const count = res.TotalCount
-        return count
-      }
-      const totalCount = await getIqaCount()
+
+      const totalCount = await getTotalQueryRecordCount(query)
       const data: T[] = []
       for (const i of Array(Math.ceil(totalCount / 100)).keys()) {
         const res = await api.query<T>(query, undefined, 100, i * 100)
@@ -129,12 +131,7 @@ export const api = {
   queryAllAndMutate: async <T>(query: string, mutate:
     (data: T[], i: number) => void  
     , limit: number = 100) => {
-    const getIqaCount = async () => {
-      const res = await api.query(query, undefined, 1);
-      const count = res.TotalCount;
-      return count;
-    };
-    const totalCount = await getIqaCount();
+    const totalCount = await getTotalQueryRecordCount(query);
     for (const i of Array(Math.ceil(totalCount / limit)).keys()) {
       const res = await api.query<T>(query, undefined, limit, i * limit);
       mutate(res.Items.$values, i);
