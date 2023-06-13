@@ -27,6 +27,11 @@ const buildRequest = (method: string, body: any) => {
   }
 };
 
+const getTotalQueryRecordCount = async (query:string) => {
+  const res = await api.query(query, undefined, 1);
+  return res.TotalCount
+  }
+
 export const imisFetch = async (
   endpoint: string,
   method: string,
@@ -54,11 +59,6 @@ export const imisFetch = async (
     return data;
   }
 };
-
-      const getTotalQueryRecordCount = async (query:string) => {
-        const res = await api.query(query, undefined, 1);
-        return res.TotalCount
-      }
 
 export const api = {
   get: {
@@ -96,7 +96,6 @@ export const api = {
   },
   query: async <T>(
     query: string,
-    // query: Endpoints,
     parameters?: { [key: string]: string | number },
     limit: number = 100,
     offset: number = 0
@@ -119,7 +118,6 @@ export const api = {
     queryAll: async <T>(
     query: string,
     ) => {
-
       const totalCount = await getTotalQueryRecordCount(query)
       const data: T[] = []
       for (const i of Array(Math.ceil(totalCount / 100)).keys()) {
