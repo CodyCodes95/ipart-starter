@@ -110,6 +110,37 @@ export const api = {
     // return res as T;
     return res as QueryResponse<T>;
   },
+    queryAll: async <T>(
+    query: string,
+    ) => {
+      const getIqaCount = async () => {
+        const res = await api.query<T>(query, undefined, 1);
+        const count = res.TotalCount
+        return count
+      }
+      const totalCount = await getIqaCount()
+      const data: T[] = []
+      for (const i of Array(Math.ceil(totalCount / 100)).keys()) {
+        const res = await api.query<T>(query, undefined, 100, i * 100)
+        data.push(...res.Items.$values)
+      }
+    return data
+  },
+  queryAllAndMutate: async <T>(query: string, mutate:
+    (data: T[], i: number) => void  
+    , limit: number = 100) => {
+    const getIqaCount = async () => {
+      const res = await api.query(query, undefined, 1);
+      const count = res.TotalCount;
+      return count;
+    };
+    const totalCount = await getIqaCount();
+    for (const i of Array(Math.ceil(totalCount / limit)).keys()) {
+      const res = await api.query<T>(query, undefined, limit, i * limit);
+      mutate(res.Items.$values, i);
+    }
+    return
+  },
   post: {
     contact: async <T>(
       endpoint: string,
