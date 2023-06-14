@@ -93,6 +93,19 @@ export const api = {
       );
       return res as QueryResponse<T>;
     },
+    allAndMutate: async<T>(
+      endpoint: string,
+      mutate: (data: T[], i: number) => Promise<void>,
+      limit: number = 100
+    ) => {
+      const getCount = await api.get.many(endpoint, undefined, 1);
+      const totalCount = getCount.TotalCount
+      for (const i of Array(Math.ceil(totalCount / limit)).keys()) {
+        const res = await api.get.many<T>(endpoint, undefined, limit, i * limit);
+        await mutate(res.Items.$values, i);
+      }
+      return
+    },
   },
   query: async <T>(
     query: string,
@@ -127,12 +140,12 @@ export const api = {
     return data
   },
   queryAllAndMutate: async <T>(query: string, mutate:
-    (data: T[], i: number) => void  
+    (data: T[], i: number) => Promise<void>  
     , limit: number = 100) => {
     const totalCount = await getTotalQueryRecordCount(query);
     for (const i of Array(Math.ceil(totalCount / limit)).keys()) {
       const res = await api.query<T>(query, undefined, limit, i * limit);
-      mutate(res.Items.$values, i);
+      await mutate(res.Items.$values, i);
     }
     return
   },
