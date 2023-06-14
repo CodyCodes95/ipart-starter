@@ -55,6 +55,9 @@ export const imisFetch = async (
     return data;
   } else {
     const res = await fetch(`/api/${endpoint}`, buildRequest(method, body));
+    if (method === "DELETE") {
+      return res
+    }
     const data = await res.json();
     return data;
   }
