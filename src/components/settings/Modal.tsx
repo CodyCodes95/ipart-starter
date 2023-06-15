@@ -4,15 +4,15 @@ import { FC } from "react";
 type ModalProps = {
     children: React.ReactNode;
     isOpen: boolean;
+    setIsOpen: (isOpen: any) => void;
 }
 
-const Modal:FC<ModalProps> = ({isOpen, children}) => {
+const Modal:FC<ModalProps> = ({isOpen, children, setIsOpen}) => {
   return (
     <Dialog
         open={isOpen}
-        onClose={() => {
-          console.log("close")
-        }}
+          onClose={() => setIsOpen(undefined)}
+          // ^^ infering the open state from whatever type the selected is (pattern I like, is this right?)
         className="relative z-[5001]"
       >
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
