@@ -67,7 +67,7 @@ export const api = {
   get: {
     one: async <T>(
       endpoint: string,
-      id: string,
+      id: string | number,
       ordinal?: number
     ): Promise<T> => {
       const res = await imisFetch(
@@ -155,7 +155,7 @@ export const api = {
   post: {
     contact: async <T>(
       endpoint: string,
-      id: string,
+      id: string | number,
       data?: { [key: string]: string | number },
       idKey: string = "ID"
     ) => {
@@ -211,7 +211,7 @@ export const api = {
   put: {
     properties: async <T>(
       endpoint: string,
-      id: string,
+      id: string | number,
       updatedProperties: {
         [key: string]:
           | string
@@ -238,7 +238,7 @@ export const api = {
       return res;
     },
   },
-  delete: async (endpoint: string, id: string, ordinal?: number) => {
+  delete: async (endpoint: string, id: string | number, ordinal?: number) => {
     const res = await imisFetch(
       `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
       "DELETE"
