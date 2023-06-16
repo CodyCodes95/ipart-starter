@@ -21,10 +21,7 @@ export type ContactData = {
         | string
         | number
         | null
-        | {
-            $type: string;
-            $value: string | boolean;
-          };
+        | boolean
     }[];
   };
 };

@@ -209,7 +209,7 @@ export const api = {
     },
   },
   put: {
-    contact: async <T>(
+    properties: async <T>(
       endpoint: string,
       id: string,
       updatedProperties: {
@@ -217,10 +217,7 @@ export const api = {
           | string
           | number
           | null
-          | {
-              $type: string;
-              $value: string | boolean;
-            };
+          | boolean
       },
       ordinal?: number
     ) => {
