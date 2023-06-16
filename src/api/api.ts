@@ -44,7 +44,7 @@ export const imisFetch = async (
     const res = await fetch("https://imis-bridge-production.up.railway.app", {
       method: "POST",
       body: JSON.stringify({
-        endpoint: `${import.meta.env.VITE_ENDPOINT}${endpoint}`,
+        endpoint: `${import.meta.env.VITE_ENDPOINT}/api/${endpoint}`,
         method: method,
         body: body,
         username: import.meta.env.VITE_USERNAME,
