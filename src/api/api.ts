@@ -27,10 +27,10 @@ const buildRequest = (method: string, body: any) => {
   }
 };
 
-const getTotalQueryRecordCount = async (query:string) => {
+const getTotalQueryRecordCount = async (query: string) => {
   const res = await api.query(query, undefined, 1);
-  return res.TotalCount
-  }
+  return res.TotalCount;
+};
 
 export const imisFetch = async (
   endpoint: string,
@@ -56,7 +56,7 @@ export const imisFetch = async (
   } else {
     const res = await fetch(`/api/${endpoint}`, buildRequest(method, body));
     if (method === "DELETE") {
-      return res
+      return res;
     }
     const data = await res.json();
     return data;
@@ -96,18 +96,23 @@ export const api = {
       );
       return res as QueryResponse<T>;
     },
-    allAndMutate: async<T>(
+    allAndMutate: async <T>(
       endpoint: string,
       mutate: (data: T[], i: number) => Promise<void>,
       limit: number = 100
     ) => {
       const getCount = await api.get.many(endpoint, undefined, 1);
-      const totalCount = getCount.TotalCount
+      const totalCount = getCount.TotalCount;
       for (const i of Array(Math.ceil(totalCount / limit)).keys()) {
-        const res = await api.get.many<T>(endpoint, undefined, limit, i * limit);
+        const res = await api.get.many<T>(
+          endpoint,
+          undefined,
+          limit,
+          i * limit
+        );
         await mutate(res.Items.$values, i);
       }
-      return
+      return;
     },
   },
   query: async <T>(
@@ -131,26 +136,29 @@ export const api = {
     // return res as T;
     return res as QueryResponse<T>;
   },
-    queryAll: async <T>(
-    query: string,
-    ) => {
-      const totalCount = await getTotalQueryRecordCount(query)
-      const data: T[] = []
-      for (const i of Array(Math.ceil(totalCount / 100)).keys()) {
-        const res = await api.query<T>(query, undefined, 100, i * 100)
-        data.push(...res.Items.$values)
-      }
-    return data
-  },
-  queryAllAndMutate: async <T>(query: string, mutate:
-    (data: T[], i: number) => Promise<void>  
-    , limit: number = 100) => {
+  queryAll: async <T>(query: string) => {
     const totalCount = await getTotalQueryRecordCount(query);
+    const data: T[] = [];
+    for (const i of Array(Math.ceil(totalCount / 100)).keys()) {
+      const res = await api.query<T>(query, undefined, 100, i * 100);
+      data.push(...res.Items.$values);
+    }
+    return data;
+  },
+  queryAllAndMutate: async <T>(
+    query: string,
+    mutate: (data: T[], i: number) => Promise<void>,
+    parameters?: { [key: string]: string | number },
+    limit: number = 100
+  ) => {
+    const totalCountRes = await api.query(query, parameters, 1);
+    const totalCount = totalCountRes.TotalCount;
+    if (!totalCount) return;
     for (const i of Array(Math.ceil(totalCount / limit)).keys()) {
-      const res = await api.query<T>(query, undefined, limit, i * limit);
+      const res = await api.query<T>(query, parameters, limit, i * limit);
       await mutate(res.Items.$values, i);
     }
-    return
+    return;
   },
   post: {
     contact: async <T>(
@@ -213,11 +221,7 @@ export const api = {
       endpoint: string,
       id: string | number,
       updatedProperties: {
-        [key: string]:
-          | string
-          | number
-          | null
-          | boolean
+        [key: string]: string | number | null | boolean;
       },
       ordinal?: number
     ) => {
