@@ -1,4 +1,5 @@
 import { ContactData, QueryResponse } from "../types/api";
+import { DecendantFilesResult } from "../types/imisTypes";
 
 //Helper Functions
 
@@ -30,6 +31,25 @@ const buildRequest = (method: string, body: any) => {
 const getTotalQueryRecordCount = async (query: string) => {
   const res = await api.query(query, undefined, 1);
   return res.TotalCount;
+};
+
+const getFolderIdByPath = async (path: string) => {
+  const res = await api.post.any("DocumentSummary/_execute", {
+    $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+    EntityTypeName: "DocumentSummary",
+    OperationName: "FindByPath",
+    Parameters: {
+      $type:
+        "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+      $values: [
+        {
+          $type: "System.String",
+          $value: path,
+        },
+      ],
+    },
+  });
+  return res.Result.Path;
 };
 
 export const imisFetch = async (
@@ -277,5 +297,41 @@ export const api = {
       "DELETE"
     );
     return res;
+  },
+  document: {
+    getAllByPath: async (path: string, blob: boolean = false) => {
+      let endpoint = "";
+      if (blob) {
+        endpoint = "Document";
+      } else {
+        endpoint = "DocumentSummary";
+      }
+      const folderId = await getFolderIdByPath(path);
+      const res = await api.post.any(`${endpoint}/execute`, {
+        $type:
+          "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+        EntityTypeName: endpoint,
+        OperationName: "FindDocumentsInFolder",
+        Parameters: {
+          $type:
+            "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+          $values: [
+            {
+              $type: "System.String",
+              $value: folderId,
+            },
+            {
+              $type: "System.String[]",
+              $values: ["JPG", "PNG", "CON", "IQD", "FOL", "CFL"],
+            },
+            {
+              $type: "System.Boolean",
+              $value: false,
+            },
+          ],
+        },
+      });
+      return res as DecendantFilesResult;
+    },
   },
 };
