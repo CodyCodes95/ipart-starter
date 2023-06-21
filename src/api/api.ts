@@ -211,7 +211,36 @@ export const api = {
       });
       return res;
     },
-    standalone: async <T>(endpoint: string, data: any) => {
+    standalone: async <T>(
+      endpoint: string,
+      data: { [key: string]: string | number }
+    ) => {
+      const res = await imisFetch(`${endpoint}`, "POST", {
+        $type: "Asi.Soa.Core.DataContracts.GenericEntityData, Asi.Contracts",
+        EntityTypeName: endpoint,
+        PrimaryParentEntityTypeName: "Standalone",
+        Identity: {
+          $type: "Asi.Soa.Core.DataContracts.IdentityData, Asi.Contracts",
+          EntityTypeName: endpoint,
+        },
+        PrimaryParentIdentity: {
+          $type: "Asi.Soa.Core.DataContracts.IdentityData, Asi.Contracts",
+          EntityTypeName: "Standalone",
+        },
+        Properties: {
+          $type:
+            "Asi.Soa.Core.DataContracts.GenericPropertyDataCollection, Asi.Contracts",
+          $values: Object.entries(data).map(([key, value]) => ({
+            $type:
+              "Asi.Soa.Core.DataContracts.GenericPropertyData, Asi.Contracts",
+            Name: key,
+            Value: value,
+          })),
+        },
+      });
+      return res;
+    },
+    any: async <T>(endpoint: string, data: any) => {
       const res = await imisFetch(`${endpoint}`, "POST", data);
       return res;
     },
