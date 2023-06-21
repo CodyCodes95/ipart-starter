@@ -307,7 +307,7 @@ export const api = {
         endpoint = "DocumentSummary";
       }
       const folderId = await getFolderIdByPath(path);
-      const res = await api.post.any(`${endpoint}/execute`, {
+      const res = await api.post.any(`${endpoint}/_execute`, {
         $type:
           "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
         EntityTypeName: endpoint,
