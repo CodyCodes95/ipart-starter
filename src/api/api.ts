@@ -291,7 +291,7 @@ export const api = {
       return res;
     },
   },
-  delete: async (endpoint: string, id: string | number, ordinal?: number) => {
+  delete: async (endpoint: string, id: string | number, ordinal?: number | string) => {
     const res = await imisFetch(
       `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
       "DELETE"
