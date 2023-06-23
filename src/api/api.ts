@@ -337,6 +337,19 @@ export const api = {
       return res as DecendantFilesResult;
     },
   },
+  gentable: {
+    create: async (table: string, code: string) => {
+      const res = await api.post.any("gentable", {
+        $type: "Asi.Soa.Core.DataContracts.GenTableData, Asi.Contracts",
+        Table_Name: table,
+        Code: code,
+        Upper_Code: code.toUpperCase(),
+        Description: code,
+        NCode: code,
+      });
+      return res;
+    },
+  },
 };
 
 //formdesignerlibrary
