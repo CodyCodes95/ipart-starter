@@ -28,30 +28,6 @@ const buildRequest = (method: string, body: any) => {
   }
 };
 
-const getTotalQueryRecordCount = async (query: string) => {
-  const res = await api.query(query, undefined, 1);
-  return res.TotalCount;
-};
-
-const getFolderIdByPath = async (path: string) => {
-  const res = await api.post.any("DocumentSummary/_execute", {
-    $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
-    EntityTypeName: "DocumentSummary",
-    OperationName: "FindByPath",
-    Parameters: {
-      $type:
-        "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
-      $values: [
-        {
-          $type: "System.String",
-          $value: path,
-        },
-      ],
-    },
-  });
-  return res.Result.Path;
-};
-
 export const imisFetch = async (
   endpoint: string,
   method: string,
@@ -156,8 +132,12 @@ export const api = {
     // return res as T;
     return res as QueryResponse<T>;
   },
-  queryAll: async <T>(query: string) => {
-    const totalCount = await getTotalQueryRecordCount(query);
+  queryAll: async <T>(
+    query: string,
+    parameters?: { [key: string]: string | number }
+  ) => {
+    const totalCountRes = await api.query(query, parameters, 1);
+    const totalCount = totalCountRes.TotalCount;
     const data: T[] = [];
     for (const i of Array(Math.ceil(totalCount / 100)).keys()) {
       const res = await api.query<T>(query, undefined, 100, i * 100);
@@ -291,7 +271,11 @@ export const api = {
       return res;
     },
   },
-  delete: async (endpoint: string, id: string | number, ordinal?: number | string) => {
+  delete: async (
+    endpoint: string,
+    id: string | number,
+    ordinal?: number | string
+  ) => {
     const res = await imisFetch(
       `${endpoint}/${!ordinal ? `${id}` : `~${id}|${ordinal}`}`,
       "DELETE"
@@ -299,14 +283,33 @@ export const api = {
     return res;
   },
   document: {
-    getAllByPath: async (path: string, blob: boolean = false) => {
+    getDocumentId: async (path: string) => {
+      const res = await api.post.any("DocumentSummary/_execute", {
+        $type:
+          "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+        EntityTypeName: "DocumentSummary",
+        OperationName: "FindByPath",
+        Parameters: {
+          $type:
+            "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+          $values: [
+            {
+              $type: "System.String",
+              $value: path,
+            },
+          ],
+        },
+      });
+      return res.Result.Path;
+    },
+    getAll: async (path: string, blob: boolean = false) => {
       let endpoint = "";
       if (blob) {
         endpoint = "Document";
       } else {
         endpoint = "DocumentSummary";
       }
-      const folderId = await getFolderIdByPath(path);
+      const folderId = await api.document.getDocumentId(path);
       const res = await api.post.any(`${endpoint}/_execute`, {
         $type:
           "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
@@ -335,3 +338,5 @@ export const api = {
     },
   },
 };
+
+//formdesignerlibrary
