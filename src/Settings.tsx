@@ -8,8 +8,10 @@ import { SettingsType } from "./types/Settings";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [exampleValue, setExampleValue] = useState<string>("");
-  const [sampleIqaPath, setSampleIqaPath] = useState<string>("");
+  const [iPartSettings, setIpartSettings] = useState<SettingsType>({
+    exampleValue: "",
+    sampleIqaPath: "",
+  });
 
   const getSettings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
@@ -18,8 +20,7 @@ const Settings = () => {
       ) as SettingsType;
       console.log(settings);
       // Set all state vars with values from settings
-      setExampleValue(settings.exampleValue);
-      setSampleIqaPath(settings.sampleIqaPath);
+      setIpartSettings(settings);
       setIsLoading(false);
     } else {
       console.log("No settings found");
@@ -39,13 +40,14 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    if (exampleValue && sampleIqaPath) {
-      saveSettings({ exampleValue, sampleIqaPath });
+    if (!iPartSettings) return;
+    if (iPartSettings.exampleValue && iPartSettings.sampleIqaPath) {
+      saveSettings(iPartSettings);
       document.querySelector<any>("[id$=_SaveButton]").disabled = false;
     } else {
       document.querySelector<any>("[id$=_SaveButton]").disabled = true;
     }
-  }, [exampleValue, sampleIqaPath]);
+  }, [iPartSettings]);
 
   if (isLoading) {
     return (
@@ -82,15 +84,20 @@ const Settings = () => {
         <input
           type="text"
           placeholder="API Key"
-          value={exampleValue}
-          onChange={(e) => setExampleValue(e.target.value)}
+          value={iPartSettings?.exampleValue}
+          onChange={(e) =>
+            setIpartSettings({
+              ...iPartSettings,
+              exampleValue: e.target.value,
+            })
+          }
         />
       </ConfigInput>
       <ConfigInput label="Example IQA Select">
-        <input type="text" placeholder="Select an IQA" value={sampleIqaPath} />
+        <input type="text" placeholder="Select an IQA" value={iPartSettings?.sampleIqaPath} />
         <a
           className="TextButton cursor-pointer"
-          onClick={() => bindIqa(setSampleIqaPath)}
+          onClick={() => bindIqa((iqa) => setIpartSettings({ ...iPartSettings, sampleIqaPath: iqa }))}
         >
           Search
         </a>
