@@ -10,7 +10,18 @@ export type DocumentData = {
   Status: string;
 };
 
-export type ResponseData = {
+export type SingleDocumentResponse = {
+  $type: string;
+  Result: DocumentData;
+  IsSuccessStatusCode: boolean;
+  Message: string | null;
+  ReasonPhrase: string | null;
+  StatusCode: number;
+  ValidationResults: any;
+  IsCachedResult: boolean;
+};
+
+export type DocumentResponse = {
   $type: string;
   Result: {
     $type: string;

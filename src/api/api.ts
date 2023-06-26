@@ -1,5 +1,9 @@
 import { ContactData, QueryResponse } from "../types/api";
-import { DecendantFilesResult } from "../types/imisTypes";
+import {
+  DecendantFilesResult,
+  FileTypes,
+  SingleDocumentResponse,
+} from "../types/imisTypes";
 
 //Helper Functions
 
@@ -213,7 +217,7 @@ export const api = {
     },
     standalone: async <T>(
       endpoint: string,
-      data: { [key: string]: string | number | boolean }
+      data: { [key: string]: string | number | boolean | null }
     ) => {
       const res = await imisFetch(`${endpoint}`, "POST", {
         $type: "Asi.Soa.Core.DataContracts.GenericEntityData, Asi.Contracts",
@@ -242,7 +246,7 @@ export const api = {
     },
     any: async <T>(endpoint: string, data: any) => {
       const res = await imisFetch(`${endpoint}`, "POST", data);
-      return res;
+      return res as T;
     },
   },
   put: {
@@ -284,23 +288,26 @@ export const api = {
   },
   document: {
     getDocumentId: async (path: string) => {
-      const res = await api.post.any("DocumentSummary/_execute", {
-        $type:
-          "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
-        EntityTypeName: "DocumentSummary",
-        OperationName: "FindByPath",
-        Parameters: {
+      const res = await api.post.any<SingleDocumentResponse>(
+        "DocumentSummary/_execute",
+        {
           $type:
-            "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
-          $values: [
-            {
-              $type: "System.String",
-              $value: path,
-            },
-          ],
-        },
-      });
-      return res.Result.Path;
+            "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+          EntityTypeName: "DocumentSummary",
+          OperationName: "FindByPath",
+          Parameters: {
+            $type:
+              "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+            $values: [
+              {
+                $type: "System.String",
+                $value: path,
+              },
+            ],
+          },
+        }
+      );
+      return res.Result.DocumentId;
     },
     getAllByFolderPath: async (folderPath: string, blob: boolean = false) => {
       let endpoint = "";
@@ -336,6 +343,27 @@ export const api = {
       });
       return res as DecendantFilesResult;
     },
+    create: async (
+      folderPath: string,
+      fileName: string,
+      fileType: FileTypes,
+      base64: string
+    ) => {
+      const res = await api.post.any<SingleDocumentResponse>("document", {
+        $type: "Asi.Soa.Core.DataContracts.DocumentData, Asi.Contracts",
+        Data: {
+          $type: "System.Byte[], mscorlib",
+          $value: base64.split(",")[1] as string,
+        },
+        Description: "",
+        DocumentTypeId: fileType.toUpperCase(),
+        Name: fileName,
+        AlternateName: "",
+        Path: folderPath,
+        Status: "Published",
+      });
+      return res;
+    },
   },
   gentable: {
     create: async (table: string, code: string) => {
@@ -351,5 +379,3 @@ export const api = {
     },
   },
 };
-
-//formdesignerlibrary
