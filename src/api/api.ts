@@ -1,6 +1,7 @@
 import { ContactData, QueryResponse } from "../types/api";
 import {
   DecendantFilesResult,
+  DocumentData,
   FileTypes,
   SingleDocumentResponse,
 } from "../types/imisTypes";
@@ -307,6 +308,7 @@ export const api = {
           },
         }
       );
+      if (!res.Result) return null;
       return res.Result.DocumentId;
     },
     getAllByFolderPath: async (folderPath: string, blob: boolean = false) => {
@@ -349,7 +351,7 @@ export const api = {
       fileType: FileTypes,
       base64: string
     ) => {
-      const res = await api.post.any<SingleDocumentResponse>("document", {
+      const res = await api.post.any<DocumentData>("document", {
         $type: "Asi.Soa.Core.DataContracts.DocumentData, Asi.Contracts",
         Data: {
           $type: "System.Byte[], mscorlib",
