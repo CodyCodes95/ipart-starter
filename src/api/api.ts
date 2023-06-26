@@ -213,7 +213,7 @@ export const api = {
     },
     standalone: async <T>(
       endpoint: string,
-      data: { [key: string]: string | number }
+      data: { [key: string]: string | number | boolean }
     ) => {
       const res = await imisFetch(`${endpoint}`, "POST", {
         $type: "Asi.Soa.Core.DataContracts.GenericEntityData, Asi.Contracts",
