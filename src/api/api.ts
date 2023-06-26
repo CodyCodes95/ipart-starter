@@ -302,14 +302,14 @@ export const api = {
       });
       return res.Result.Path;
     },
-    getAll: async (path: string, blob: boolean = false) => {
+    getAllByFolderPath: async (folderPath: string, blob: boolean = false) => {
       let endpoint = "";
       if (blob) {
         endpoint = "Document";
       } else {
         endpoint = "DocumentSummary";
       }
-      const folderId = await api.document.getDocumentId(path);
+      const folderId = await api.document.getDocumentId(folderPath);
       const res = await api.post.any(`${endpoint}/_execute`, {
         $type:
           "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
