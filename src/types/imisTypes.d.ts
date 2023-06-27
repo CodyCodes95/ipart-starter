@@ -54,4 +54,9 @@ export type DecendantFilesResult = {
   };
 };
 
+export type GeneralLookupQuery = {
+  Code: string;
+  Description: string;
+};
+
 export type FileTypes = "FOL" | "CON" | "PNG" | "IQD" | "JPG" | "CFL";
