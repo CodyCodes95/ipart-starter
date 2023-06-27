@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 import Settings from "./Settings";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -25,6 +26,13 @@ if (document.getElementById("JsonSettings")) {
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <App />
+        <Toaster
+          position="bottom-right"
+          containerStyle={{
+            zIndex: 10000000,
+            top: 250,
+          }}
+        />
       </QueryClientProvider>
     </React.StrictMode>
   );

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
 import toast, { Toaster } from "react-hot-toast";
-import loader from "./assets/loader.svg";
 import { api } from "./api/api";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { SettingsType } from "./types/Settings";
+import Loader from "./components/settings/Loader";
 
 const App = () => {
   const [settings, setSettings] = useState<SettingsType>();
@@ -41,20 +41,13 @@ const App = () => {
   if (!settings) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <img className="h-[15rem] w-[15rem]" src={loader} />
+        <Loader className="stroke=[#e41e2e] h-60 w-60" />
       </div>
     );
   }
 
   return (
     <div className="flex w-full flex-col">
-      <Toaster
-        position="bottom-right"
-        containerStyle={{
-          zIndex: 10000000,
-          top: 250,
-        }}
-      />
       <h1>Test</h1>
     </div>
   );
