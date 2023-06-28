@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import loader from "./assets/loader.svg";
 import { bindIqa } from "./utils/noTypes";
 import ConfigInput from "./components/settings/ConfigInput";
 import { Toaster } from "react-hot-toast";
 import icon from "./assets/icon.svg";
 import { SettingsType } from "./types/Settings";
+import Loader from "./components/settings/Loader";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -60,11 +60,7 @@ const Settings = () => {
           />
           <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
         </div>
-        <img
-          src={loader}
-          alt="Loading spinner"
-          className="h-[10rem] w-[10rem] stroke-[#e41e2e] "
-        />
+        <Loader className="h-[15rem] w-[15rem] stroke-[#e41e2e]" />
       </div>
     );
   }
@@ -94,10 +90,18 @@ const Settings = () => {
         />
       </ConfigInput>
       <ConfigInput label="Example IQA Select">
-        <input type="text" placeholder="Select an IQA" value={iPartSettings?.sampleIqaPath} />
+        <input
+          type="text"
+          placeholder="Select an IQA"
+          value={iPartSettings?.sampleIqaPath}
+        />
         <a
           className="TextButton cursor-pointer"
-          onClick={() => bindIqa((iqa) => setIpartSettings({ ...iPartSettings, sampleIqaPath: iqa }))}
+          onClick={() =>
+            bindIqa((iqa) =>
+              setIpartSettings({ ...iPartSettings, sampleIqaPath: iqa })
+            )
+          }
         >
           Search
         </a>
