@@ -41,7 +41,7 @@ const App = () => {
   if (!settings) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <Loader className="stroke=[#e41e2e] h-60 w-60" />
+        <Loader className="h-60 w-60" />
       </div>
     );
   }
