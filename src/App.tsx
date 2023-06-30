@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
 import toast from "react-hot-toast";
-import { api } from "./api/api";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { SettingsType } from "./types/Settings";
 import Loader from "./components/Loader";
+import api from "@codythatsme/caus-api";
 
 const App = () => {
   const [settings, setSettings] = useState<SettingsType>();

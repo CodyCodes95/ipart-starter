@@ -15,8 +15,8 @@ import { HiOutlineDocument } from "react-icons/hi";
 import { DocumentData, FileTypes } from "../../../types/imisTypes";
 import NavBar from "./NavBar";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../../api/api";
 import { toast } from "react-hot-toast";
+import api from "@codythatsme/caus-api";
 
 const fileTypeIcons = {
   FOL: <FaFolder className="text-yellow-500" />,
