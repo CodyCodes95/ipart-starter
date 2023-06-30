@@ -25,14 +25,16 @@ const fileTypeIcons = {
   JPG: <FaImage className="text-blue-500" />,
   IQD: <FaSearch />,
   CON: <HiOutlineDocument />,
+  SVG: <FaImage className="text-blue-500" />,
 };
 
 type FileExplorerProps = {
   callback: (file: DocumentData) => void;
   fileTypes: FileTypes[];
+  root: string;
 };
 
-const FileExplorer: FC<FileExplorerProps> = ({ callback, fileTypes }) => {
+const FileExplorer: FC<FileExplorerProps> = ({ callback, fileTypes, root }) => {
   const [files, setFiles] = useState<DocumentData[]>([]);
   const [navStack, setNavStack] = useState<DocumentData[]>([]);
   const [currentFolder, setCurrentFolder] = useState<DocumentData>();
@@ -56,7 +58,7 @@ const FileExplorer: FC<FileExplorerProps> = ({ callback, fileTypes }) => {
   }, [currentFolder]);
 
   const getRootFolder = async () => {
-    const rootFolder = await getFolderByPath("$");
+    const rootFolder = await getFolderByPath(root);
     setCurrentFolder(rootFolder);
   };
 

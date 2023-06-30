@@ -59,4 +59,4 @@ export type GeneralLookupQuery = {
   Description: string;
 };
 
-export type FileTypes = "FOL" | "CON" | "PNG" | "IQD" | "JPG" | "CFL";
+export type FileTypes = "FOL" | "CON" | "PNG" | "IQD" | "JPG" | "CFL" | "SVG"
