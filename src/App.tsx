@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { api } from "./api/api";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { SettingsType } from "./types/Settings";
