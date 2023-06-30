@@ -1,0 +1,20 @@
+/* width */
+#modal-panel::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#modal-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+#modal-panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+#modal-panel::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
