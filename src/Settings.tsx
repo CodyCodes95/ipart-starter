@@ -4,7 +4,7 @@ import ConfigInput from "./components/settings/ConfigInput";
 import { Toaster } from "react-hot-toast";
 import icon from "./assets/icon.svg";
 import { SettingsType } from "./types/Settings";
-import Loader from "./components/settings/Loader";
+import Loader from "./components/Loader";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

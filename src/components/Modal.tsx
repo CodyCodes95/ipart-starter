@@ -1,7 +1,7 @@
 import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react";
 import { FC } from "react";
-import { cn } from "../../utils/classNames";
+import { cn } from "../utils/classNames";
 
 type ModalProps = {
   children: React.ReactNode;

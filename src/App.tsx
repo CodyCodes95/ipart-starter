@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { api } from "./api/api";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { SettingsType } from "./types/Settings";
-import Loader from "./components/settings/Loader";
+import Loader from "./components/Loader";
 
 const App = () => {
   const [settings, setSettings] = useState<SettingsType>();
