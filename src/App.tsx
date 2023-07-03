@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getIpartSettings } from "./utils/imisUtils";
-import toast, { Toaster } from "react-hot-toast";
-import { api } from "./api/api";
+import toast from "react-hot-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { SettingsType } from "./types/Settings";
 import Loader from "./components/Loader";
+import api from "@codythatsme/caus-api";
 
 const App = () => {
   const [settings, setSettings] = useState<SettingsType>();
@@ -41,7 +41,7 @@ const App = () => {
   if (!settings) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <Loader className="stroke=[#e41e2e] h-60 w-60" />
+        <Loader className="h-60 w-60" />
       </div>
     );
   }

@@ -6,12 +6,18 @@ import { Dialog } from "@headlessui/react";
 import { FileTypes } from "../../types/imisTypes";
 
 type DocumentSelectorProps = {
-  label: string;
   setPath: (fileId: string) => void;
   fileTypes: FileTypes[];
+  root: string;
+  value: string | undefined;
 };
 
-const DocumentSelector: FC<DocumentSelectorProps> = ({ label, setPath }) => {
+const DocumentSelector: FC<DocumentSelectorProps> = ({
+  setPath,
+  fileTypes,
+  root,
+  value,
+}) => {
   const { selectedFile, isExplorerOpen, handleFileSelect, openFileExplorer } =
     useFileExplorer();
 
@@ -34,17 +40,19 @@ const DocumentSelector: FC<DocumentSelectorProps> = ({ label, setPath }) => {
         {/* Full-screen container to center the panel */}
         <div className="fixed inset-0 flex items-center justify-center p-4">
           {/* The actual dialog panel  */}
-          <Dialog.Panel className={"w-full max-h-[40rem] overflow-scroll"}>
-            <FileExplorer fileTypes={["IQD"]} callback={handleFileSelect} />
+          <Dialog.Panel className={"max-h-[40rem] w-full overflow-scroll"}>
+            <FileExplorer
+              fileTypes={[...fileTypes, "FOL"]}
+              callback={handleFileSelect}
+              root={root}
+            />
           </Dialog.Panel>
         </div>
       </Dialog>
-      <ConfigInput label={label}>
-        <input type="text" value={selectedFile?.Path} />
-        <a className="TextButton cursor-pointer" onClick={openFileExplorer}>
-          Search
-        </a>
-      </ConfigInput>
+      <input type="text" value={value} />
+      <a className="TextButton cursor-pointer" onClick={openFileExplorer}>
+        Search
+      </a>
     </>
   );
 };
