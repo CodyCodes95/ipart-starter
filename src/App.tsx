@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { SettingsType } from "./types/Settings";
 import Loader from "./components/Loader";
 import api from "@codythatsme/caus-api";
+import { checkLicense } from "./utils/checkLicense";
 
 const App = () => {
   const [settings, setSettings] = useState<SettingsType>();
@@ -24,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     // Runs on intial iPart load
-    getSettings();
+    checkLicense("ipartName", getSettings);
   }, []);
 
   const getData = async () => {
