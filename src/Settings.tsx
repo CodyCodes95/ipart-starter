@@ -13,6 +13,22 @@ const Settings = () => {
     sampleIqaPath: "",
   });
 
+  useEffect(() => {
+    // Runs on intial iPart load
+    document.querySelector<any>("[id$=_SaveButton]").disabled = true;
+    getSettings();
+  }, []);
+
+  useEffect(() => {
+    if (!iPartSettings) return;
+    if (validateSettings()) {
+      saveSettings(iPartSettings);
+      document.querySelector<any>("[id$=_SaveButton]").disabled = false;
+    } else {
+      document.querySelector<any>("[id$=_SaveButton]").disabled = true;
+    }
+  }, [iPartSettings]);
+
   const getSettings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
       const settings = JSON.parse(
@@ -28,26 +44,15 @@ const Settings = () => {
     }
   };
 
+  const validateSettings = () => {
+    // Validate settings
+    return true;
+  };
+
   const saveSettings = (newSettings: SettingsType) => {
     document.querySelector<any>("#JsonSettings").value =
       JSON.stringify(newSettings);
   };
-
-  useEffect(() => {
-    // Runs on intial iPart load
-    document.querySelector<any>("[id$=_SaveButton]").disabled = true;
-    getSettings();
-  }, []);
-
-  useEffect(() => {
-    if (!iPartSettings) return;
-    if (iPartSettings.exampleValue && iPartSettings.sampleIqaPath) {
-      saveSettings(iPartSettings);
-      document.querySelector<any>("[id$=_SaveButton]").disabled = false;
-    } else {
-      document.querySelector<any>("[id$=_SaveButton]").disabled = true;
-    }
-  }, [iPartSettings]);
 
   if (isLoading) {
     return (
