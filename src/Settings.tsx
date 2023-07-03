@@ -54,24 +54,8 @@ const Settings = () => {
       JSON.stringify(newSettings);
   };
 
-  if (isLoading) {
+  const Header = () => {
     return (
-      <div className="flex min-h-[30rem] w-full items-center justify-center">
-        <div className="flex w-full items-center">
-          <img
-            src={icon}
-            className="h-[10rem] w-[10rem]"
-            alt="Smart Suite Icon"
-          />
-          <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
-        </div>
-        <Loader className="h-[15rem] w-[15rem] stroke-[#e41e2e]" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex min-h-[30rem] w-full flex-col items-center justify-center">
       <div className="flex w-full items-center">
         <img
           src={icon}
@@ -80,6 +64,21 @@ const Settings = () => {
         />
         <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
       </div>
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[30rem] w-full items-center justify-center">
+        <Header />
+        <Loader className="h-[15rem] w-[15rem] stroke-[#e41e2e]" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex min-h-[30rem] w-full flex-col items-center justify-center">
+      <Header />
       <Toaster />
       <ConfigInput label="Example Value">
         <input
