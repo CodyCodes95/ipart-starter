@@ -21,10 +21,14 @@ const checkLic = (kgiruewfvvff: string | undefined) => {
   return vhreuivhuvass(kgiruewfvvff);
 };
 
-export const checkLicense = async (productName: string, callback: () => void) => {
+export const checkLicense = async (
+  productName: string,
+  callback: () => void
+) => {
   try {
     const res = await api.query<{ Expiration: string }>(
-      "$/Causeis/Smart Series/Smart Suite Licensing"
+      "$/Causeis/Smart Series/Smart Suite Licensing",
+      { ProductName: productName }
     );
     if (!res.Count) {
       return Promise.reject(new Error("No license found"));
