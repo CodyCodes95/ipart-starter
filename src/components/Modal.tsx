@@ -6,8 +6,7 @@ import { cn } from "../utils/classNames";
 type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  onClose?: () => void;
+  onClose: () => void;
   className?: string;
   title: string;
 };
@@ -15,7 +14,6 @@ type ModalProps = {
 const Modal: FC<ModalProps> = ({
   isOpen,
   children,
-  setIsOpen,
   onClose,
   className,
   title,
@@ -23,12 +21,7 @@ const Modal: FC<ModalProps> = ({
   return (
     <Dialog
       open={isOpen}
-      onClose={() => {
-        if (onClose) {
-          return onClose();
-        }
-        setIsOpen(false);
-      }}
+      onClose={onClose}
       // ^^ infering the open state from whatever type the selected is (pattern I like, is this right?)
       className="relative z-[5001]"
     >
@@ -41,15 +34,17 @@ const Modal: FC<ModalProps> = ({
         <Dialog.Panel
           id="modal-panel"
           className={cn(
-            "mx-auto overflow-y-auto rounded-md bg-white p-4",
+            "mx-auto overflow-y-auto rounded-md bg-white",
             className
           )}
         >
           <div className="flex w-full items-center justify-between rounded-t-lg border-b-2 p-4">
-            <Dialog.Title className="text-xl font-medium">{title}</Dialog.Title>
+            <Dialog.Title className="text-3xl font-medium">
+              {title}
+            </Dialog.Title>
             <X
               className="h-12 w-12 cursor-pointer rounded-md p-2 hover:bg-gray-200"
-              onClick={() => setIsOpen(false)}
+              onClick={onClose}
             />
           </div>
           {children}
