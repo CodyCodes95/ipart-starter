@@ -7,7 +7,11 @@ type LoaderProps = {
 };
 
 const Loader: FC<LoaderProps> = ({ className }) => {
-  return <Loader2 className={cn("animate-spin", className)} />;
+  return (
+    <Loader2
+      className={cn("animate-spin stroke-[var(--primary-color)]", className)}
+    />
+  );
 };
 
 export default Loader;
