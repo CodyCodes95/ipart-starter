@@ -38,3 +38,11 @@ export const bindContentPage = (input: string) => {
 };
 
 export const user = typeof userContext !== "undefined" ? userContext : {};
+
+//For use on account pages with ID API calls
+export const selectedId: string = window.location.search
+  .split("ID=")[1]
+  ?.split("&")[0]
+  ? window.location.search.split("ID=")[1]?.split("&")[0]
+  : JSON.parse(document.querySelector("#__ClientContext")?.value)
+      .selectedPartyId;
