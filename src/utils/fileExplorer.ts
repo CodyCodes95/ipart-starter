@@ -1,4 +1,4 @@
-import { imisFetch } from "../api/api";
+import api from "@codythatsme/caus-api";
 import {
   DecendantFilesResult,
   DocumentData,
@@ -9,34 +9,37 @@ export const getDecendantFiles = async (
   folderId: string,
   fileTypes?: FileTypes[]
 ) => {
-  const data = await imisFetch("/api/DocumentSummary/_execute", "POST", {
-    $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
-    EntityTypeName: "DocumentSummary",
-    OperationName: "FindDocumentsInFolder",
-    Parameters: {
-      $type:
-        "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
-      $values: [
-        {
-          $type: "System.String",
-          $value: folderId,
-        },
-        {
-          $type: "System.String[]",
-          $values: fileTypes || ["JPG", "PNG", "CON", "IQD", "FOL", "CFL"],
-        },
-        {
-          $type: "System.Boolean",
-          $value: false,
-        },
-      ],
-    },
-  });
-  return data as DecendantFilesResult;
+  const data = await api.post.any<DecendantFilesResult>(
+    "DocumentSummary/_execute",
+    {
+      $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+      EntityTypeName: "DocumentSummary",
+      OperationName: "FindDocumentsInFolder",
+      Parameters: {
+        $type:
+          "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+        $values: [
+          {
+            $type: "System.String",
+            $value: folderId,
+          },
+          {
+            $type: "System.String[]",
+            $values: fileTypes || ["JPG", "PNG", "CON", "IQD", "FOL", "CFL"],
+          },
+          {
+            $type: "System.Boolean",
+            $value: false,
+          },
+        ],
+      },
+    }
+  );
+  return data;
 };
 
 export const getDecendantFolders = async (folderId: string) => {
-  const data = await imisFetch("/api/DocumentSummary/_execute", "POST", {
+  const data = await api.post.any("/api/DocumentSummary/_execute", {
     $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
     EntityTypeName: "DocumentSummary",
     OperationName: "FindDocumentsInFolder",
@@ -63,39 +66,45 @@ export const getDecendantFolders = async (folderId: string) => {
 };
 
 export const getFolderByPath = async (path: string) => {
-  const data = await imisFetch("/api/DocumentSummary/_execute", "POST", {
-    $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
-    EntityTypeName: "DocumentSummary",
-    OperationName: "FindByPath",
-    Parameters: {
-      $type:
-        "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
-      $values: [
-        {
-          $type: "System.String",
-          $value: path,
-        },
-      ],
-    },
-  });
+  const data = await api.post.any<{ Result: DocumentData }>(
+    "/api/DocumentSummary/_execute",
+    {
+      $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+      EntityTypeName: "DocumentSummary",
+      OperationName: "FindByPath",
+      Parameters: {
+        $type:
+          "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+        $values: [
+          {
+            $type: "System.String",
+            $value: path,
+          },
+        ],
+      },
+    }
+  );
   return data.Result;
 };
 
 export const getDocumentByVersionId = async (versionId: string) => {
-  const data = await imisFetch("/api/DocumentSummary/_execute", "POST", {
-    $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
-    EntityTypeName: "DocumentSummary",
-    OperationName: "FindByVersionId",
-    Parameters: {
-      $type:
-        "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
-      $values: [
-        {
-          $type: "System.String",
-          $value: versionId,
-        },
-      ],
-    },
-  });
-  return data.Result as DocumentData;
+  const data = await api.post.any<{ Result: DocumentData }>(
+    "/api/DocumentSummary/_execute",
+    {
+      $type: "Asi.Soa.Core.DataContracts.GenericExecuteRequest, Asi.Contracts",
+      EntityTypeName: "DocumentSummary",
+      OperationName: "FindByVersionId",
+      Parameters: {
+        $type:
+          "System.Collections.ObjectModel.Collection`1[[System.Object, mscorlib]], mscorlib",
+        $values: [
+          {
+            $type: "System.String",
+            $value: versionId,
+          },
+        ],
+      },
+    }
+  );
+  return data.Result;
 };
