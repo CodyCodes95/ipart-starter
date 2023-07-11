@@ -32,9 +32,8 @@ const Modal: FC<ModalProps> = ({
       <div className="fixed inset-0 flex items-center justify-center p-4">
         {/* The actual dialog panel  */}
         <Dialog.Panel
-          id="modal-panel"
           className={cn(
-            "mx-auto overflow-y-auto rounded-md bg-white",
+            "mx-auto overflow-y-auto rounded-md bg-white better-scrollbar",
             className
           )}
         >

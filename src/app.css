@@ -1,20 +1,24 @@
 /* width */
-#modal-panel::-webkit-scrollbar {
+.better-scrollbar::-webkit-scrollbar {
   width: 10px;
 }
 
 /* Track */
-#modal-panel::-webkit-scrollbar-track {
+.better-scrollbar::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
 /* Handle */
-#modal-panel::-webkit-scrollbar-thumb {
+.better-scrollbar::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
 
 /* Handle on hover */
-#modal-panel::-webkit-scrollbar-thumb:hover {
+.better-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
