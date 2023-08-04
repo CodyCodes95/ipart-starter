@@ -26,14 +26,17 @@ const Modal: FC<ModalProps> = ({
       className="relative z-[5001]"
     >
       {/* The backdrop, rendered as a fixed sibling to the panel container */}
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+      <div
+        className="fixed inset-0 bg-black/30 backdrop-blur"
+        aria-hidden="true"
+      />
 
       {/* Full-screen container to center the panel */}
       <div className="fixed inset-0 flex items-center justify-center p-4">
         {/* The actual dialog panel  */}
         <Dialog.Panel
           className={cn(
-            "mx-auto overflow-y-auto rounded-md bg-white better-scrollbar",
+            "better-scrollbar mx-auto overflow-y-auto rounded-md bg-white",
             className
           )}
         >
