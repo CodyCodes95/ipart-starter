@@ -3,12 +3,12 @@ import { bindIqa } from "./utils/noTypes";
 import ConfigInput from "./components/settings/ConfigInput";
 import { Toaster } from "react-hot-toast";
 import icon from "./assets/icon.svg";
-import { SettingsType } from "./types/Settings";
+import { iPartSettings } from "./types/Settings";
 import Loader from "./components/Loader";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [iPartSettings, setIpartSettings] = useState<SettingsType>({
+  const [iPartSettings, setIpartSettings] = useState<iPartSettings>({
     exampleValue: "",
     sampleIqaPath: "",
   });
@@ -33,7 +33,7 @@ const Settings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
       const settings = JSON.parse(
         document.querySelector<any>("#JsonSettings").value
-      ) as SettingsType;
+      ) as iPartSettings;
       console.log(settings);
       // Set all state vars with values from settings
       setIpartSettings(settings);
@@ -49,7 +49,7 @@ const Settings = () => {
     return true;
   };
 
-  const saveSettings = (newSettings: SettingsType) => {
+  const saveSettings = (newSettings: iPartSettings) => {
     document.querySelector<any>("#JsonSettings").value =
       JSON.stringify(newSettings);
   };
