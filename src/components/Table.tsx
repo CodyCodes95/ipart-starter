@@ -6,7 +6,6 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import Spacer from "./Spacer";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 type TableProps = {
@@ -84,7 +83,7 @@ const Table: React.FC<TableProps> = ({
           />
         </div>
       </div>
-      <Spacer amount="3" />
+      <div className="p-3" />
       <table className="w-full text-left text-gray-500 " {...getTableProps()}>
         <thead className="bg-gray-50 text-sm uppercase text-gray-700 ">
           {headerGroups.map((headerGroup, i) => (

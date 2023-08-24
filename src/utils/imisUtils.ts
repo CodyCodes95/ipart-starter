@@ -1,4 +1,4 @@
-import { SettingsType } from "../types/Settings";
+import { iPartSettings } from "../types/Settings";
 export const getOptions = {
   method: "GET",
   headers: {
@@ -17,5 +17,5 @@ export const getIpartSettings = async () => {
     getOptions
   );
   const data = await getSettings.json();
-  return data.Items.$values[0].Data.Settings as SettingsType;
+  return data.Items.$values[0].Data.Settings as iPartSettings;
 };
