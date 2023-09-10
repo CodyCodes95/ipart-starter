@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { bindIqa } from "./utils/noTypes";
-import ConfigInput from "./components/settings/ConfigInput";
-import { Toaster } from "react-hot-toast";
 import icon from "./assets/icon.svg";
 import { iPartSettings } from "./types/Settings";
-import Loader from "./components/Loader";
+import { ConfigInput, Loader } from "@codythatsme/smart-suite-components";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -79,7 +77,6 @@ const Settings = () => {
   return (
     <div className="flex min-h-[30rem] w-full flex-col items-center justify-center">
       <Header />
-      <Toaster />
       <ConfigInput label="Example Value">
         <input
           type="text"
