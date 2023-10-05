@@ -3,7 +3,7 @@ name: Build and deploy
 on:
   push:
     branches:
-      - master
+      - main
       - dev
 
 jobs:
@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Set BASE_URL Environment Variable
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
-            echo "BASE_URL=https://smartsuite.blob.core.windows.net/iparts/DEV/explorer/" >> $GITHUB_ENV
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "BASE_URL=https://smartsuite.blob.core.windows.net/iparts/IPARTPATH/" >> $GITHUB_ENV
           else
-            echo "BASE_URL=https://smartsuite.blob.core.windows.net/iparts/DEV/explorer/" >> $GITHUB_ENV
+            echo "BASE_URL=https://smartsuite.blob.core.windows.net/iparts/DEV/IPARTPATH/" >> $GITHUB_ENV
           fi
 
       - name: Checkout code
@@ -45,10 +45,10 @@ jobs:
       - name: Set destination path based on branch
         id: setpath
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
-            echo "::set-output name=destination::/DEV/explorer"
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "::set-output name=destination::/IPARTPATH"
           else
-            echo "::set-output name=destination::/DEV/explorer"
+            echo "::set-output name=destination::/DEV/IPARTPATH"
           fi
 
       - name: Upload production-ready build files
