@@ -3,7 +3,11 @@ export type ProductSettings = {
   sampleIqaPath: string;
 };
 
-export type iPartSettings = {
+export type StaffSettings = {
+  staffOnlyValue: string;
+};
+
+export type IPartSettings = {
   exampleValue: string;
   sampleIqaPath: string;
 };

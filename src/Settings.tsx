@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import { bindIqa } from "./utils/noTypes";
 import icon from "./assets/icon.svg";
-import { iPartSettings } from "./types/Settings";
+import { IPartSettings } from "./types/SettingsTypes";
 import { ConfigInput, Loader } from "@codythatsme/smart-suite-components";
+
+export const Header = () => {
+  return (
+    <div className="flex w-full items-center">
+      <img src={icon} className="h-[10rem] w-[10rem]" alt="Smart Suite Icon" />
+      <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
+    </div>
+  );
+};
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [iPartSettings, setIpartSettings] = useState<iPartSettings>({
+  const [iPartSettings, setIpartSettings] = useState<IPartSettings>({
     exampleValue: "",
     sampleIqaPath: "",
   });
@@ -31,7 +40,7 @@ const Settings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
       const settings = JSON.parse(
         document.querySelector<any>("#JsonSettings").value
-      ) as iPartSettings;
+      ) as IPartSettings;
       console.log(settings);
       // Set all state vars with values from settings
       setIpartSettings(settings);
@@ -47,22 +56,9 @@ const Settings = () => {
     return true;
   };
 
-  const saveSettings = (newSettings: iPartSettings) => {
+  const saveSettings = (newSettings: IPartSettings) => {
     document.querySelector<any>("#JsonSettings").value =
       JSON.stringify(newSettings);
-  };
-
-  const Header = () => {
-    return (
-      <div className="flex w-full items-center">
-        <img
-          src={icon}
-          className="h-[10rem] w-[10rem]"
-          alt="Smart Suite Icon"
-        />
-        <h1 className="ml-6 text-7xl">Causeis Smart Suite</h1>
-      </div>
-    );
   };
 
   if (isLoading) {

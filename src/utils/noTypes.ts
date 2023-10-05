@@ -15,29 +15,6 @@ export const bindIqa = (setInput: (input: string) => void) => {
   );
 };
 
-export const bindContentPage = (input: string) => {
-  const businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL =
-    new BusinessDocumentBrowserProperties();
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.RootFolder =
-    "@/";
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.AllowUpwardNavigation =
-    true;
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.ShowAddress =
-    false;
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.AutoPostBack =
-    false;
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.ValueControlID =
-    input;
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.DocumentVersionKeyValueControlID =
-    "ctl00_TemplateBody_ctl01";
-  businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL.ShowMenu =
-    false;
-  return BusinessDocumentBrowserControl_Select(
-    businessDocumentBrowserPropertiesctl00_TemplateBody_ContentOrURL
-  );
-};
-
-export const user = typeof userContext !== "undefined" ? userContext : {};
 
 //For use on account pages with ID API calls
 export const selectedId: string = window.location.search

@@ -445,3 +445,20 @@ video {
 
 @tailwind components;
 @tailwind utilities;
+
+/* Used for svg loader on staff */
+svg .causeis-loader {
+  stroke-dashoffset: 1873.218994140625px !important;
+  stroke-dasharray: 1873.218994140625px !important;
+  fill: transparent !important;
+  -webkit-transition: stroke-dashoffset 1s cubic-bezier(0.47, 0, 0.745, 0.715)
+      0s,
+    fill 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 0.8s !important;
+  transition: stroke-dashoffset 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0s,
+    fill 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 0.8s !important;
+}
+
+svg.active .causeis-loader {
+  stroke-dashoffset: 0 !important;
+  fill: rgb(228, 30, 46) !important;
+}
