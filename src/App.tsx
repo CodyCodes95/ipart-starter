@@ -5,7 +5,7 @@ const App = () => {
 
   return (
     <div className="flex w-full flex-col">
-      <h1>Test</h1>
+      <h1>Hello World</h1>
     </div>
   );
 };
