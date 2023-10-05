@@ -45,7 +45,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     checkLicense("PRODUCTNAME", () => setLicensed(true));
-  });
+  }, []);
 
   const getProductSettings = async (productName: string) => {
     const res = await api.query<{ Settings: string; Ordinal: number }>(

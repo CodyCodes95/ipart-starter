@@ -11,12 +11,18 @@ const noAttr = () => {
 };
 
 export default defineConfig({
-  plugins: [react(), noAttr(), {
+  plugins: [
+    react(),
+    noAttr(),
+    {
       name: "iife-wrapper",
       apply: "build",
       renderChunk(code) {
         return `(function() {\n${code}\n})();`;
       },
-    },],
-  base: "https://smartsuite.blob.core.windows.net/iparts/IPARTNAME/",
+    },
+  ],
+  base:
+    process.env.BASE_URL ||
+    "https://smartsuite.blob.core.windows.net/iparts/IPARTNAME/",
 });

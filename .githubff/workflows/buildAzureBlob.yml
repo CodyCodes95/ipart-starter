@@ -1,0 +1,61 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set BASE_URL Environment Variable
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+            echo "BASE_URL=https://smartsuite.blob.core.windows.net/iparts/DEV/explorer/" >> $GITHUB_ENV
+          else
+            echo "BASE_URL=https://smartsuite.blob.core.windows.net/iparts/DEV/explorer/" >> $GITHUB_ENV
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install NPM packages
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build project
+        run: bunx run build
+
+      - name: Set destination path based on branch
+        id: setpath
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+            echo "::set-output name=destination::/DEV/explorer"
+          else
+            echo "::set-output name=destination::/DEV/explorer"
+          fi
+
+      - name: Upload production-ready build files
+        uses: bacongobbler/azure-blob-storage-upload@main
+        with:
+          source_dir: ./dist
+          container_name: iparts
+          extra_args: "--destination-path ${{ steps.setpath.outputs.destination }}"
+          connection_string: ${{ secrets.ConnectionString }}
+          overwrite: "true"
