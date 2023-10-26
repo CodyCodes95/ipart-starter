@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { bindIqa } from "./utils/noTypes";
+import { bindIqa } from "../utils/noTypes";
 import icon from "./assets/icon.svg";
-import { IPartSettings } from "./types/SettingsTypes";
+import { IPartSettings } from "../types/SettingsTypes";
 import { ConfigInput, Loader } from "@codythatsme/smart-suite-components";
 
 export const Header = () => {

@@ -29,18 +29,12 @@ jobs:
           bun-version: latest
 
       - name: Install NPM packages
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: |
-            - recursive: true
-              args: [--frozen-lockfile, --strict-peer-dependencies]
-            - args: [--global, gulp, prettier, typescript]
+        run: bun install
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Build project
-        run: bunx run build
+        run: bun run build
 
       - name: Set destination path based on branch
         id: setpath

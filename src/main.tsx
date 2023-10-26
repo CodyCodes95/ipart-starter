@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import Settings from "./Settings";
+import App from "./pages/App";
+import "./styles/index.css";
+import "./styles/app.css";
+import Settings from "./pages/Settings";
 import {
   QueryCache,
   QueryClient,
   QueryClientProvider,
-  QueryErrorResetBoundary,
 } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { ErrorBoundary } from "react-error-boundary";
@@ -39,9 +39,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ErrorBoundary fallback={<FatalErrorFallback />}>
       <QueryClientProvider client={queryClient}>
-        <SettingsProvider>
-          {document.querySelector("#JsonSettings") ? <Settings /> : <App />}
-        </SettingsProvider>
+        {document.querySelector("#JsonSettings") ? (
+          <Settings />
+        ) : (
+          <SettingsProvider>
+            <App />
+          </SettingsProvider>
+        )}
         <Toaster richColors />
       </QueryClientProvider>
     </ErrorBoundary>
