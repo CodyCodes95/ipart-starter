@@ -1,0 +1,2 @@
+[install.scopes]
+"@codythatsme" = { url = "https://registry.npmjs.org/:_authToken=$NPM_TOKEN", "username" = "codythatsme" }
