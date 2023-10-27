@@ -462,3 +462,9 @@ svg.active .causeis-loader {
   stroke-dashoffset: 0 !important;
   fill: rgb(228, 30, 46) !important;
 }
+
+/* imis nav fix */
+
+.collapse {
+  visibility: unset !important;
+}
