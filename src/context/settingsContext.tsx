@@ -1,18 +1,21 @@
+import type {
+  PropsWithChildren} from "react";
 import {
-  PropsWithChildren,
   createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
-import {
+import type {
   ProductSettings,
-  StaffSettings,
-  IPartSettings,
+  IPartSettings} from "../types/SettingsTypes";
+import {
+  StaffSettings
 } from "../types/SettingsTypes";
 import { useQuery } from "@tanstack/react-query";
 import api from "@codythatsme/caus-api";
 import { checkLicense } from "../utils/checkLicense";
+import { NotLicensed } from "@codythatsme/smart-suite-components";
 
 // All staff settings lines should be commented out if not using staff settings
 
@@ -39,12 +42,12 @@ export const useSettings = () => {
 };
 
 const SettingsProvider = ({ children }: PropsWithChildren) => {
-  const [licensed, setLicensed] = useState<boolean>(false);
+  const [licensed, setLicensed] = useState<boolean>();
   const [productSettings, setProductSettings] = useState<ProductSettings>();
   // const [staffSettings, setStaffSettings] = useState<StaffSettings>();
 
   useEffect(() => {
-    checkLicense("PRODUCTNAME", () => setLicensed(true));
+    checkLicense(productName, setLicensed);
   }, []);
 
   const getProductSettings = async (productName: string) => {
@@ -117,6 +120,8 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
           iPartSettings,
         };
       }
+      setProductSettings(res.settings);
+      // setStaffSettings(data.staffSettings);
       return {
         settings: res.settings!,
         // staffSettings: res.staffSettings!,
@@ -124,15 +129,12 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
         ordinal: res.ordinal!,
       };
     },
-    onSuccess: (data) => {
-      setProductSettings(data.settings);
-      // setStaffSettings(data.staffSettings);
-    },
     retry: false,
-    enabled: licensed,
   });
 
-  if (!settingsResponse.data || !productSettings) return null;
+    if (licensed === false) return <NotLicensed />
+
+  if (!settingsResponse.data || !productSettings || !licensed) return null;
   // if (!settingsResponse.data || !productSettings || !staffSettings) return null;
 
   return (

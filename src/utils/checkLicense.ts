@@ -21,23 +21,39 @@ const checkLic = (kgiruewfvvff: string | undefined) => {
   return vhreuivhuvass(kgiruewfvvff);
 };
 
+const fixCookies = () => {
+  const removeCookie = (name: string | undefined) => {
+    if (!name) return;
+    console.log(`Deleting cookie ${name}`);
+    document.cookie =
+      name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  };
+  const badCookies = document.cookie
+    .split(";")
+    .filter((cookie) => cookie.includes("/Reserved.Report"));
+  badCookies.forEach((cookie) => removeCookie(cookie.split("=")[0]));
+};
+
 export const checkLicense = async (
   productName: string,
-  callback: () => void
+  setLicensed: React.Dispatch<React.SetStateAction<boolean | undefined>>
 ) => {
+  fixCookies();
   try {
     const res = await api.query<{ Expiration: string }>(
       "$/Causeis/Smart Series/Smart Suite Licensing",
-      { ProductName: productName }
+      {
+        ProductName: productName,
+      }
     );
     if (!res.Count) {
-      return Promise.reject(new Error("No license found"));
+      setLicensed(false);
     }
     if (new Date(checkLic(res.Items.$values[0]?.Expiration)) < bufferDate) {
       // throw new Error("Product license has expired");
-      return Promise.reject(new Error("Product license has expired"));
+      setLicensed(false);
     }
-    callback();
+    setLicensed(true);
   } catch (err: any) {
     throw new Error(err.message);
   }
