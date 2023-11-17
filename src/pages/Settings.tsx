@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { bindIqa } from "../utils/noTypes";
 import icon from "./assets/icon.svg";
-import { IPartSettings } from "../types/SettingsTypes";
+import type { IPartSettings } from "../types/SettingsTypes";
 import { ConfigInput, Loader } from "@codythatsme/smart-suite-components";
 
 export const Header = () => {
@@ -86,7 +85,7 @@ const Settings = () => {
           }
         />
       </ConfigInput>
-      <ConfigInput label="Example IQA Select">
+      {/* <ConfigInput label="Example IQA Select">
         <input
           type="text"
           placeholder="Select an IQA"
@@ -102,7 +101,7 @@ const Settings = () => {
         >
           Search
         </a>
-      </ConfigInput>
+      </ConfigInput> */}
     </div>
   );
 };
