@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import icon from "./assets/icon.svg";
+import icon from "../assets/icon.svg";
 import type { IPartSettings } from "../types/SettingsTypes";
 import { ConfigInput, Loader } from "@codythatsme/smart-suite-components";
 
