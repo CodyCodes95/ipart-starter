@@ -115,6 +115,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
         });
         const data = await getProductSettings(productName);
         if (!data) throw new Error("Error getting settings");
+        setProductSettings(data.settings);
         return {
           ...data,
           iPartSettings,
