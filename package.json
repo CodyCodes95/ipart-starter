@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "analyze": "bunx vite-bundle-visualizer",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
