@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}",
-      "./node_modules/@codythatsme/smart-suite-components/**/*.{js,ts,jsx,tsx}",
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@codythatsme/smart-suite-components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     fontSize: {
@@ -17,7 +19,19 @@ module.exports = {
       "6xl": "4.5rem",
       "7xl": "5rem",
     },
-    extend: {},
+    extend: {
+      padding: {
+        var: "var(--padding)",
+      },
+      borderRadius: {
+        var: "var(--border-radius)",
+      },
+      colors: {
+        primary: "var(--primary-color)",
+        secondary: "var(--secondary-color)",
+        grey: "var(--grey-color)",
+      },
+    },
   },
   plugins: [],
 };

@@ -72,10 +72,10 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
   //     ProductName: productName,
   //   });
   //   const staffSettings: StaffSettings = JSON.parse(
-  //     res.Items.$values[0]?.StaffSettings || ""
+  //     res.Items.$values[0]?.StaffSettings || "{}"
   //   );
   //   const settings: ProductSettings = JSON.parse(
-  //     res.Items.$values[0]?.Settings || ""
+  //     res.Items.$values[0]?.Settings || "{}"
   //   );
   //   return {
   //     staffSettings,
