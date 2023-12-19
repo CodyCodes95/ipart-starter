@@ -14,8 +14,8 @@ import {
 } from "../types/SettingsTypes";
 import { useQuery } from "@tanstack/react-query";
 import api from "@codythatsme/caus-api";
-import { checkLicense } from "../utils/checkLicense";
 import { NotLicensed } from "@codythatsme/smart-suite-components";
+import { checkLicense } from "@codythatsme/causeis-utils";
 
 // All staff settings lines should be commented out if not using staff settings
 
