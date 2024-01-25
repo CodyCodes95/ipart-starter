@@ -5,7 +5,9 @@ const noAttr = () => {
   return {
     name: "no-attribute",
     transformIndexHtml(html: any) {
-      return html.replace(`type="module" crossorigin`, "defer");
+      return html
+        .replace(`type="module" crossorigin`, "defer")
+        .replace("crossorigin", "");
     },
   };
 };
