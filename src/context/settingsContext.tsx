@@ -1,17 +1,7 @@
-import type {
-  PropsWithChildren} from "react";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import type {
-  ProductSettings,
-  IPartSettings} from "../types/SettingsTypes";
-import {
-  StaffSettings
-} from "../types/SettingsTypes";
+import type { PropsWithChildren } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import type { ProductSettings, IPartSettings } from "../types/SettingsTypes";
+import type { StaffSettings } from "../types/SettingsTypes";
 import { useQuery } from "@tanstack/react-query";
 import api from "@codythatsme/caus-api";
 import { NotLicensed } from "@codythatsme/smart-suite-components";
@@ -30,7 +20,7 @@ type SettingsContextType = {
 const productName = "PRODUCT NAME";
 
 const SettingsContext = createContext<SettingsContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const useSettings = () => {
@@ -53,7 +43,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
   const getProductSettings = async (productName: string) => {
     const res = await api.query<{ Settings: string; Ordinal: number }>(
       "$/Causeis/Smart Series/Smart Suite Product Settings",
-      { ProductName: productName }
+      { ProductName: productName },
     );
     if (!res.Count) return null;
     const productSettings = JSON.parse(res.Items.$values[0]?.Settings || "");
@@ -71,11 +61,12 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
   //   }>("$/Causeis/Smart Series/Smart Suite Staff Product Settings", {
   //     ProductName: productName,
   //   });
+  //   if (!res.Count) return null;
   //   const staffSettings: StaffSettings = JSON.parse(
-  //     res.Items.$values[0]?.StaffSettings || "{}"
+  //     res.Items.$values[0]?.StaffSettings || "{}",
   //   );
   //   const settings: ProductSettings = JSON.parse(
-  //     res.Items.$values[0]?.Settings || "{}"
+  //     res.Items.$values[0]?.Settings || "{}",
   //   );
   //   return {
   //     staffSettings,
@@ -90,7 +81,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
       document.querySelector<any>("#x-contentItemKey").value;
     const settings = await api.contentItem.get<IPartSettings>(
       contentKey,
-      contentItemKey
+      contentItemKey,
     );
     return settings;
   };
@@ -99,6 +90,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
     queryKey: ["settings"],
     queryFn: async () => {
       const res = await getProductSettings(productName);
+      // const res = await getStaffSettings(productName);
       const iPartSettings = await getIpartSettings();
       if (!res) {
         const defaultSettings: ProductSettings = {
@@ -133,7 +125,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
     retry: false,
   });
 
-    if (licensed === false) return <NotLicensed />
+  if (licensed === false) return <NotLicensed />;
 
   if (!settingsResponse.data || !productSettings || !licensed) return null;
   // if (!settingsResponse.data || !productSettings || !staffSettings) return null;
