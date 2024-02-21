@@ -24,6 +24,14 @@ export default defineConfig({
       },
     },
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: "ipart-name.js",
+        assetFileNames: "ipart-name.css",
+      },
+    },
+  },
   base:
     process.env.BASE_URL ||
     "https://smartsuite.blob.core.windows.net/iparts/IPARTNAME/",
