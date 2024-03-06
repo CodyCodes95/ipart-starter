@@ -24,14 +24,15 @@ export default defineConfig({
       },
     },
   ],
-  build: {
-    rollupOptions: {
-      output: {
-        entryFileNames: "ipart-name.js",
-        assetFileNames: "ipart-name.css",
-      },
-    },
-  },
+  // Thought this was better to get a fresh build, but then we fight with browser cache
+  // build: {
+  //   rollupOptions: {
+  //     output: {
+  //       entryFileNames: "ipart-name.js",
+  //       assetFileNames: "ipart-name.css",
+  //     },
+  //   },
+  // },
   base:
     process.env.BASE_URL ||
     "https://smartsuite.blob.core.windows.net/iparts/IPARTNAME/",
