@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import type { ProductSettings, IPartSettings } from "../types/SettingsTypes";
-import type { StaffSettings } from "../types/SettingsTypes";
+import type { ProductSettings, IPartSettings } from "./SettingsTypes";
+import type { StaffSettings } from "./SettingsTypes";
 import { useQuery } from "@tanstack/react-query";
 import api from "@codythatsme/caus-api";
 import { NotLicensed } from "@codythatsme/smart-suite-components";

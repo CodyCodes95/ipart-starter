@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./pages/App";
+import App from "./App";
 import "./styles/index.css";
 import "./styles/app.css";
-import Settings from "./pages/Settings";
+import Settings from "./settings/Settings";
 import {
   QueryCache,
   QueryClient,
@@ -13,7 +13,7 @@ import { Toaster } from "sonner";
 import { ErrorBoundary } from "react-error-boundary";
 import api from "@codythatsme/caus-api";
 import { FatalErrorFallback } from "@codythatsme/smart-suite-components";
-import SettingsProvider from "./context/settingsContext";
+import SettingsProvider from "./settings/settingsContext";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -49,5 +49,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Toaster richColors />
       </QueryClientProvider>
     </ErrorBoundary>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

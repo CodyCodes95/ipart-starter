@@ -1,4 +1,4 @@
-import { useSettings } from "../context/settingsContext";
+import { useSettings } from "./settings/settingsContext";
 
 const App = () => {
   const { iPartSettings, productSettings } = useSettings();

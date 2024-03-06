@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import icon from "../assets/icon.svg";
-import type { IPartSettings } from "../types/SettingsTypes";
+import type { IPartSettings } from "./SettingsTypes";
 import { ConfigInput, Loader } from "@codythatsme/smart-suite-components";
 
 export const Header = () => {
@@ -38,7 +38,7 @@ const Settings = () => {
   const getSettings = () => {
     if (document.querySelector<any>("#JsonSettings").value) {
       const settings = JSON.parse(
-        document.querySelector<any>("#JsonSettings").value
+        document.querySelector<any>("#JsonSettings").value,
       ) as IPartSettings;
       console.log(settings);
       // Set all state vars with values from settings
