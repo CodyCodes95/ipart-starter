@@ -11,9 +11,9 @@ import {
 } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { ErrorBoundary } from "react-error-boundary";
-import api from "@codythatsme/caus-api";
 import { FatalErrorFallback } from "@codythatsme/smart-suite-components";
 import SettingsProvider from "./settings/settingsContext";
+import { writeIpartError } from "@codythatsme/causeis-utils";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -24,12 +24,13 @@ const queryClient = new QueryClient({
     onError: (err) => {
       console.log(err);
       if (err instanceof Error) {
-        api.post.standalone("causeis_error", {
-          ErrorName: err.name,
-          ErrorMessage: err.message.substring(0, 4000),
-          ProductName: "PRODUCT",
-          IPart: "IPART",
-        });
+        if (import.meta.env.PROD) {
+          writeIpartError({
+            Message: err.message,
+            Product: "Smart Classifieds",
+            IPart: "Smart Classifieds Editor",
+          });
+        }
       }
     },
   }),

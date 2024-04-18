@@ -3,9 +3,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { ProductSettings, IPartSettings } from "./SettingsTypes";
 import type { StaffSettings } from "./SettingsTypes";
 import { useQuery } from "@tanstack/react-query";
-import api from "@codythatsme/caus-api";
 import { NotLicensed } from "@codythatsme/smart-suite-components";
 import { checkLicense } from "@codythatsme/causeis-utils";
+import { api } from "../api/api";
 
 // All staff settings lines should be commented out if not using staff settings
 
