@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { PluginOption, defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 const noAttr = () => {
@@ -12,28 +12,28 @@ const noAttr = () => {
   };
 };
 
-export default defineConfig({
-  plugins: [
-    react(),
-    noAttr(),
-    {
-      name: "iife-wrapper",
-      apply: "build",
-      renderChunk(code) {
-        return `(function() {\n${code}\n})();`;
+const iifeWrapper = () => {
+  return {
+    name: "iife-wrapper",
+    apply: "build",
+    renderChunk(code) {
+      return `(function() {\n${code}\n})();`;
+    },
+  } as PluginOption;
+};
+
+export default defineConfig(({ command }) => {
+  return {
+    plugins: [react(), noAttr(), iifeWrapper()],
+    server: {
+      open: "/dev.html",
+    },
+    build: {
+      rollupOptions: {
+        // Conditionally set the entry point
+        input: command === "serve" ? "public.html" : "index.html",
       },
     },
-  ],
-  // Thought this was better to get a fresh build, but then we fight with browser cache
-  // build: {
-  //   rollupOptions: {
-  //     output: {
-  //       entryFileNames: "ipart-name.js",
-  //       assetFileNames: "ipart-name.css",
-  //     },
-  //   },
-  // },
-  base:
-    process.env.BASE_URL ||
-    "https://smartsuite.blob.core.windows.net/iparts/IPARTNAME/",
+    base: process.env.BASE_URL || "http://localhost:5173/",
+  };
 });
