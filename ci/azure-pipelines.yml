@@ -1,0 +1,53 @@
+trigger:
+  branches:
+    include:
+      - main
+      - dev
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  DEV_PATH: DEV/ipart-starter
+  PROD_PATH: ipart-starter
+
+steps:
+  - task: Npm@1
+    displayName: setup bun
+    inputs:
+      command: "custom"
+      customCommand: "install -g bun"
+      verbose: true
+
+  - bash: bun install
+    displayName: "install"
+    env:
+      NPM_TOKEN: $(NPM_TOKEN)
+
+  - bash: bun run build
+    displayName: "DEV build"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+    env:
+      CONNECTION_STRING: $(CONNECTION_STRING)
+      IPART_PATH: $(DEV_PATH)
+
+  - bash: bun run build
+    displayName: "PROD build"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    env:
+      CONNECTION_STRING: $(CONNECTION_STRING)
+      IPART_PATH: $(PROD_PATH)
+
+  - bash: bun run upload
+    displayName: "DEV upload to Azure Blob Storage"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+    env:
+      CONNECTION_STRING: $(CONNECTION_STRING)
+      IPART_PATH: $(DEV_PATH)
+
+  - bash: bun run upload
+    displayName: "PROD upload to Azure Blob Storage"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    env:
+      CONNECTION_STRING: $(CONNECTION_STRING)
+      IPART_PATH: $(PROD_PATH)

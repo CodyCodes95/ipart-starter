@@ -23,6 +23,7 @@
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
+    "@azure/storage-blob": "^12.23.0",
     "@tanstack/eslint-plugin-query": "^5.47.0",
     "@types/jquery": "^3.5.30",
     "@types/node": "^20.14.9",

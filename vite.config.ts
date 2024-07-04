@@ -26,14 +26,16 @@ export default defineConfig(({ command }) => {
   return {
     plugins: [react(), noAttr(), iifeWrapper()],
     server: {
-      open: "/dev.html",
+      open: "/public.html",
     },
-    build: {
-      rollupOptions: {
-        // Conditionally set the entry point
-        input: command === "serve" ? "public.html" : "index.html",
-      },
-    },
-    base: process.env.BASE_URL || "http://localhost:5173/",
+    // build: {
+    //   rollupOptions: {
+    //     // Conditionally set the entry point
+    //     input: command === "serve" ? "dev.html" : "index.html",
+    //   },
+    // },
+    base: process.env.IPART_PATH
+      ? `https://smartsuite.blob.core.windows.net/iparts/${process.env.IPART_PATH}`
+      : "https://smartsuite.blob.core.windows.net/iparts/IPARTPATH/",
   };
 });
