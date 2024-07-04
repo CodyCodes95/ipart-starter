@@ -24,6 +24,12 @@ steps:
     env:
       NPM_TOKEN: $(NPM_TOKEN)
 
+  - bash: bun run format
+    displayName: "run prettier"
+
+  - bash: bun run lint
+    displayName: "run eslint"
+
   - bash: bun run build
     displayName: "DEV build"
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
