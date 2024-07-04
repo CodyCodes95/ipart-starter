@@ -10,7 +10,8 @@
     "build:dev": "tsc && vite build && bun run upload",
     "build": "tsc && vite build",
     "upload": "bun ci/uploadBuildToAzure.ts",
-    "lint": "eslint src --ext .ts,.tsx"
+    "lint": "eslint src --ext .ts,.tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@codythatsme/caus-api": "^5.2.8",
