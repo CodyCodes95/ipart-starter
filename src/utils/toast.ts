@@ -9,14 +9,16 @@ type ToastOptions = {
 export const asyncToast = (promise: Promise<any>, options?: ToastOptions) => {
   return new Promise((resolve, reject) => {
     toast.promise(promise, {
-      loading: options?.loadingMessage || "Loading...",
+      loading: options?.loadingMessage ?? "Loading...",
       success: (data) => {
         resolve(data);
-        return options?.successMessage || "Success!";
+        return options?.successMessage ?? "Success!";
       },
       error: (err) => {
         reject(err);
-        return options?.errorMessage || err.message
+        if (err instanceof Error) {
+          return options?.errorMessage ?? err.message;
+        }
       },
     });
   });

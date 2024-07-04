@@ -1,7 +1,5 @@
-import { useSettings } from "./settings/settingsContext";
-
 const App = () => {
-  const { iPartSettings, productSettings } = useSettings();
+  // const { iPartSettings, productSettings } = useSettings();
 
   return (
     <div className="flex w-full flex-col">

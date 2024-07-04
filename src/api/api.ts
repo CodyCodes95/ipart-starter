@@ -4,8 +4,8 @@ const apiOptions = import.meta.env.PROD
   ? undefined
   : {
       baseUrl: "http://localhost:9000",
-      username: import.meta.env.VITE_USERNAME,
-      password: import.meta.env.VITE_PASSWORD,
+      username: import.meta.env.VITE_USERNAME as string,
+      password: import.meta.env.VITE_PASSWORD as string,
     };
 
 export const api = createApi(apiOptions);

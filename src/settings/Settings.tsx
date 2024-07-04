@@ -21,7 +21,8 @@ const Settings = () => {
 
   useEffect(() => {
     // Runs on intial iPart load
-    document.querySelector<any>("[id$=_SaveButton]").disabled = true;
+    document.querySelector<HTMLInputElement>("[id$=_SaveButton]")!.disabled =
+      true;
     getSettings();
   }, []);
 
@@ -29,16 +30,18 @@ const Settings = () => {
     if (!iPartSettings) return;
     if (validateSettings()) {
       saveSettings(iPartSettings);
-      document.querySelector<any>("[id$=_SaveButton]").disabled = false;
+      document.querySelector<HTMLInputElement>("[id$=_SaveButton]")!.disabled =
+        false;
     } else {
-      document.querySelector<any>("[id$=_SaveButton]").disabled = true;
+      document.querySelector<HTMLInputElement>("[id$=_SaveButton]")!.disabled =
+        true;
     }
   }, [iPartSettings]);
 
   const getSettings = () => {
-    if (document.querySelector<any>("#JsonSettings").value) {
+    if (document.querySelector<HTMLInputElement>("#JsonSettings")!.value) {
       const settings = JSON.parse(
-        document.querySelector<any>("#JsonSettings").value,
+        document.querySelector<HTMLInputElement>("#JsonSettings")!.value,
       ) as IPartSettings;
       console.log(settings);
       // Set all state vars with values from settings
@@ -56,7 +59,7 @@ const Settings = () => {
   };
 
   const saveSettings = (newSettings: IPartSettings) => {
-    document.querySelector<any>("#JsonSettings").value =
+    document.querySelector<HTMLInputElement>("#JsonSettings")!.value =
       JSON.stringify(newSettings);
   };
 

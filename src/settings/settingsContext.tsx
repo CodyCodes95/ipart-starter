@@ -1,7 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ProductSettings, IPartSettings } from "./SettingsTypes";
-import type { StaffSettings } from "./SettingsTypes";
 import { useQuery } from "@tanstack/react-query";
 import { NotLicensed } from "@codythatsme/smart-suite-components";
 import { checkLicense } from "@codythatsme/causeis-utils";
@@ -13,7 +12,6 @@ type SettingsContextType = {
   Ordinal: number;
   productSettings: ProductSettings;
   // staffSettings: StaffSettings;
-  refetchSettings: () => void;
   iPartSettings: IPartSettings;
 };
 
@@ -37,7 +35,7 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
   // const [staffSettings, setStaffSettings] = useState<StaffSettings>();
 
   useEffect(() => {
-    checkLicense(productName, setLicensed);
+    void checkLicense(productName, setLicensed);
   }, []);
 
   const getProductSettings = async (productName: string) => {
@@ -46,10 +44,12 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
       { ProductName: productName },
     );
     if (!res.Count) return null;
-    const productSettings = JSON.parse(res.Items.$values[0]?.Settings || "");
+    const productSettings = JSON.parse(
+      res.Items.$values[0]?.Settings ?? "",
+    ) as ProductSettings;
     return {
-      settings: productSettings as ProductSettings,
-      ordinal: res.Items.$values[0]?.Ordinal as number,
+      settings: productSettings,
+      ordinal: res.Items.$values[0]!.Ordinal,
     };
   };
 
@@ -76,9 +76,10 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
   // };
 
   const getIpartSettings = async () => {
-    const contentKey = document.querySelector<any>("#x-contentKey").value;
+    const contentKey =
+      document.querySelector<HTMLInputElement>("#x-contentKey")!.value;
     const contentItemKey =
-      document.querySelector<any>("#x-contentItemKey").value;
+      document.querySelector<HTMLInputElement>("#x-contentItemKey")!.value;
     const settings = await api.contentItem.get<IPartSettings>(
       contentKey,
       contentItemKey,
@@ -116,10 +117,10 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
       setProductSettings(res.settings);
       // setStaffSettings(data.staffSettings);
       return {
-        settings: res.settings!,
+        settings: res.settings,
         // staffSettings: res.staffSettings!,
         iPartSettings,
-        ordinal: res.ordinal!,
+        ordinal: res.ordinal,
       };
     },
     retry: false,
@@ -136,7 +137,6 @@ const SettingsProvider = ({ children }: PropsWithChildren) => {
         Ordinal: settingsResponse.data.ordinal,
         productSettings: productSettings,
         iPartSettings: settingsResponse.data.iPartSettings,
-        refetchSettings: settingsResponse.refetch,
         // staffSettings: staffSettings,
       }}
     >
